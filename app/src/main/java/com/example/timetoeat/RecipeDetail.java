@@ -47,14 +47,30 @@ public class RecipeDetail extends AppCompatActivity {
                 int IngredientCount = 1;
                 int StepCount = 1;
 
+
                 try {
-                    Document doc = Jsoup.connect("https://www.allrecipes.com/recipe/84270/slow-cooker-corned-beef-and-cabbage/").get();
-                    final Element recipe_name = doc.select("h1.recipe-summary__h1").first();
-                    Elements ingredients = doc.select("li.checkList__line label[title]");
-                    Elements steps = doc.select("span.recipe-directions__list--item");
+                    String url = "https://www.allrecipes.com/recipe/72976/jerk-chicken-pizza/";
+                    //8932/fruity-curry-chicken-salad/
+                    //recipe/25471/jamaican-jerk-chicken/
+                    final Document doc = Jsoup.connect(url).get();
+
+                    //Recipe name
+                    final Elements recipe_name_1 = doc.select("h1.recipe-summary__h1");
+                    final Elements recipe_name_2 = doc.select("h1.headline");
+
+                    //Recipe steps
+                    Elements steps_1 = doc.select("span.recipe-directions__list--item");
+                    if (steps_1.hasText() == false) {
+                        steps_1 = doc.select(".section-body");
+                    }
+
+                    //Recipe ingredients
+                    Elements ingredients = doc.select(".ingredients-item");
+
 
                     for (Element ingredient : ingredients) {
-                        recipe_name_ingredients.append("\u25AA ").append(ingredient.attr("title"));
+                        //recipe_name_ingredients.append("\u25AA ").append(ingredient.attr("value"));
+                        recipe_name_ingredients.append(". ").append(ingredient.text()).append("\n").append("\n");
 
                         if (IngredientCount < ingredients.size()) {
                             recipe_name_ingredients.append("\n");
@@ -63,26 +79,32 @@ public class RecipeDetail extends AppCompatActivity {
                         IngredientCount++;
                     }
 
-                    for (Element step : steps) {
-                        if (StepCount < steps.size()) {
+                    for (Element step : steps_1) {
+                        if (StepCount < steps_1.size()) {
                             recipe_name_body.append(StepCount).append(". ").append(step.text()).append("\n").append("\n");
                             StepCount++;
                         }
                     }
 
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            RecipeTitle.setText(recipe_name.text());
+                            if (recipe_name_1.hasText() == false) {
+                                RecipeTitle.setText(recipe_name_2.first().text());
+                            } else {
+                                RecipeTitle.setText(recipe_name_1.first().text());
+                            }
                             RecipeIngredients.setText(recipe_name_ingredients.toString());
                             RecipeBody.setText(recipe_name_body.toString());
                         }
+
                     });
                 } catch (IOException e) {
                     e.printStackTrace();
-                    // Error
-                }
+                            // Error
+                    }
+                    }
+                }.start();
             }
-        }.start();
-    }
-}
+        }
