@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/button_searchrecipes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="SearchRecipes"
+        android:text="Search Recipe"
+        tools:layout_editor_absoluteX="201dp"
+        tools:layout_editor_absoluteY="252dp" />
+
     <EditText
         android:id="@+id/Text_Search"
         android:layout_width="wrap_content"

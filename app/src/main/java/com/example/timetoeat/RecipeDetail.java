@@ -47,9 +47,8 @@ public class RecipeDetail extends AppCompatActivity {
                 int IngredientCount = 1;
                 int StepCount = 1;
 
-
                 try {
-                    String url = "https://www.allrecipes.com/recipe/72976/jerk-chicken-pizza/";
+                    String url = "https://www.allrecipes.com/recipe/274419/creamy-chicken-rice-soup/?internalSource=rotd&referringContentType=Homepage&clickId=cardslot%201";
                     //8932/fruity-curry-chicken-salad/
                     //recipe/25471/jamaican-jerk-chicken/
                     final Document doc = Jsoup.connect(url).get();
@@ -102,7 +101,7 @@ public class RecipeDetail extends AppCompatActivity {
                     });
                 } catch (IOException e) {
                     e.printStackTrace();
-                            // Error
+                        // Error
                     }
                     }
                 }.start();

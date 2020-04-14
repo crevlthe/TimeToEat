@@ -19,4 +19,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RecipeDetail.class);
         startActivity(intent);
         }
+
+    public void SearchRecipes(View view) {
+        Intent intent = new Intent(this, RecipeSearch.class);
+        startActivity(intent);
+    }
 }
