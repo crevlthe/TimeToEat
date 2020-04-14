@@ -55,7 +55,7 @@ public class RecipeSearch extends AppCompatActivity {
 
                 try {
                     String url = SearchString;
-                    //Log.d("SearchString", SearchString);
+                    Log.d("SearchString", SearchString);
 
                     final Document doc = Jsoup.connect(url).get();
                     final Elements search_items = doc.getElementsByClass("fixed-recipe-card");
