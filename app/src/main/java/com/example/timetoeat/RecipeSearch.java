@@ -1,6 +1,8 @@
 package com.example.timetoeat;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +16,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 public class RecipeSearch extends AppCompatActivity {
 
@@ -23,11 +25,15 @@ public class RecipeSearch extends AppCompatActivity {
     private TextView SearchBar;
     private Button searchBtn;
 
+    private ArrayList<String> mRecipeItems = new ArrayList<>();
+    private ArrayList<String> mRecipeURLs = new ArrayList<>();
+    //private ArrayList<String> mRecipeImages = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_search);
-        RecipeTitle = (TextView) findViewById(R.id.text_search_title);
+        //RecipeTitle = (TextView) findViewById(R.id.text_search_title);
         //RecipeDescription = (TextView) findViewById(R.id.text_search_description);
         SearchBar = (TextView) findViewById(R.id.text_searchbar);
         searchBtn = (Button) findViewById(R.id.button_search);
@@ -37,6 +43,7 @@ public class RecipeSearch extends AppCompatActivity {
                 getSearchResults();
             }
         });
+
     }
 
     private void getSearchResults() {
@@ -51,8 +58,6 @@ public class RecipeSearch extends AppCompatActivity {
         new Thread(){
             @Override
             public void run(){
-                final StringBuilder recipe_search_titles = new StringBuilder();
-
                 try {
                     String url = SearchString;
                     Log.d("SearchString", SearchString);
@@ -64,15 +69,15 @@ public class RecipeSearch extends AppCompatActivity {
 
                     //Recipe name
                     for (Element search_item : search_items){
-                        recipe_search_titles.append(search_item.select("span.fixed-recipe-card__title-link").text()).append("\n");
+                        mRecipeItems.add(search_item.select("span.fixed-recipe-card__title-link").text());
+                        //Log.d("CapturedURL",search_item.select("a").first().attr("href"));
+                        mRecipeURLs.add(search_item.select("a").first().attr("href"));
                         }
-
-                    Log.d("Result", recipe_search_titles.toString());
 
                     runOnUiThread(new Runnable(){
                         @Override
                         public void run(){
-
+                            initRecyclerView();
                         }
                     });
                 } catch (IOException e){
@@ -84,6 +89,13 @@ public class RecipeSearch extends AppCompatActivity {
 
         }.start();
 
+    }
 
+    private void initRecyclerView(){
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        //RecyclerViewAdapter adapter = new RecyclerViewAdapter (this, mRecipeItems, mRecipeImages);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter (this, mRecipeItems, mRecipeURLs);
+                recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
