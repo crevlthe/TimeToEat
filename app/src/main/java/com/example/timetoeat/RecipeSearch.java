@@ -40,6 +40,10 @@ public class RecipeSearch extends AppCompatActivity {
         searchBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                //used to clear the ArrayLists if a new search is initiated (without proceeding
+                //to another activity)
+                mRecipeItems.clear();
+                mRecipeURLs.clear();
                 getSearchResults();
             }
         });
@@ -95,7 +99,7 @@ public class RecipeSearch extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         //RecyclerViewAdapter adapter = new RecyclerViewAdapter (this, mRecipeItems, mRecipeImages);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter (this, mRecipeItems, mRecipeURLs);
-                recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

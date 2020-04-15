@@ -6,26 +6,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
-    private static final String TAG = "RecyclerViewAdapter";
     private ArrayList<String> mRecipeItem = new ArrayList<>();
     private ArrayList<String> mRecipeURL = new ArrayList<>();
     //private ArrayList<String> mRecipeImage = new ArrayList<>();
     private Context mContext;
 
-    //public RecyclerViewAdapter(Context context, ArrayList<String> RecipeItem,  ArrayList<String> RecipeImage) {
     public RecyclerViewAdapter(Context context, ArrayList<String> RecipeItem, ArrayList<String> RecipeURL) {
         mRecipeItem = RecipeItem;
         mRecipeURL = RecipeURL;
@@ -44,7 +37,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     //used to add items to the RecyclerView (from the respective ArrayLists)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Log.d(TAG, "onBindViewHolder");
 /*        Glide.with(mContext)
                 .asBitmap()
                 .load(mRecipeImage.get(position))
@@ -53,11 +45,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.ParentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                //what happens when clicking on the image
-                //Intent intent = new Intent(mContext, RecipeDetail.class);
-                //intent.putExtra("URL",mRecipeURL);
-                //mContext.startActivity(intent);
+            public void onClick(View View) {
+                //start new activity based on that passed from the search page
+                Intent intent = new Intent(mContext, RecipeDetail.class);
+                intent.putExtra("URL", mRecipeURL.get(position));
+                mContext.startActivity(intent);
             }
         });
     }
@@ -68,6 +60,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mRecipeItem.size();
     }
 
+    //outlines what will be set in the new View (within the RecyclerView)
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView RecipeItem;
         //ImageView RecipeImage;

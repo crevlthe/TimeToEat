@@ -10,29 +10,11 @@
         android:id="@+id/button_searchrecipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="SearchRecipes"
-        android:text="Search Recipe"
-        tools:layout_editor_absoluteX="201dp"
-        tools:layout_editor_absoluteY="252dp" />
-
-    <EditText
-        android:id="@+id/Text_Search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Enter search term here"
+        android:onClick="SearchRecipes"
+        android:text="Search Recipe"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_gotorecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Recipe"
-        android:onClick="ShowRecipe"
-        tools:layout_editor_absoluteX="137dp"
-        tools:layout_editor_absoluteY="77dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
