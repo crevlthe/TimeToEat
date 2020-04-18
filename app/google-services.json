@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "510118387382",
+    "firebase_url": "https://timetoeat-30f1f.firebaseio.com",
+    "project_id": "timetoeat-30f1f",
+    "storage_bucket": "timetoeat-30f1f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510118387382:android:f83fa9f0e265a2b6cf9017",
+        "android_client_info": {
+          "package_name": "com.example.timetoeat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510118387382-n3jr3pv49r8o2lt60mn1cvj924nli9c3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGddtLzWLwOrszafJlUkF79oa-vWb3ZEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510118387382-n3jr3pv49r8o2lt60mn1cvj924nli9c3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

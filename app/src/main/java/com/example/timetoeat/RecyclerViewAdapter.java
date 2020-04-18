@@ -48,7 +48,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View View) {
                 //start new activity based on that passed from the search page
                 Intent intent = new Intent(mContext, RecipeDetail.class);
+                //position attaches image url to a specific position
                 intent.putExtra("URL", mRecipeURL.get(position));
+                //+add click on the image
                 mContext.startActivity(intent);
             }
         });

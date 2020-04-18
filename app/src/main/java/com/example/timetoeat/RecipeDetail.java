@@ -2,6 +2,7 @@ package com.example.timetoeat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 public class RecipeDetail extends AppCompatActivity {
     private TextView RecipeTitle;
@@ -20,6 +22,7 @@ public class RecipeDetail extends AppCompatActivity {
     private TextView RecipeBody;
     private Button getBtn;
     private String RecipeURL;
+    private Button saveRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class RecipeDetail extends AppCompatActivity {
         RecipeTitle = (TextView) findViewById(R.id.text_recipe_title);
         RecipeIngredients = (TextView) findViewById(R.id.text_recipe_ingredients);
         RecipeBody = (TextView) findViewById(R.id.text_recipe_body);
+        saveRecipe = (Button) findViewById(R.id.button_saverecipe);
 
         getRecipe();
         //getBtn = (Button) findViewById(R.id.button_getrecipe);
@@ -45,7 +49,19 @@ public class RecipeDetail extends AppCompatActivity {
             //public void onClick(View view) {
 //                getRecipe();
   //          }
+        /*saveRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendToBuyList();
+            }
+        });*/
+
         };
+    /*public void sendToBuyList(ingredients){
+            Intent intent = new Intent(this, ToBuyList.class);
+            startActivity(intent);
+            intent.putExtra("strings",ingredients);
+    }*/
 
 
     private void getRecipe() {
@@ -59,6 +75,7 @@ public class RecipeDetail extends AppCompatActivity {
                 int StepCount = 1;
 
                 try {
+                    //+Set the image view
                     String url = RecipeURL;
                     //String url = "https://www.allrecipes.com/recipe/274419/creamy-chicken-rice-soup/?internalSource=rotd&referringContentType=Homepage&clickId=cardslot%201";
                     //8932/fruity-curry-chicken-salad/
@@ -108,6 +125,17 @@ public class RecipeDetail extends AppCompatActivity {
                             }
                             RecipeIngredients.setText(recipe_name_ingredients.toString());
                             RecipeBody.setText(recipe_name_body.toString());
+                            saveRecipe.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(RecipeDetail.this, ToBuyList.class);
+                                    Bundle extras = new Bundle();
+                                    extras.putString("INGREDIENTS", String.valueOf(recipe_name_ingredients));
+                                    intent.putExtras(extras);
+                                    startActivity(intent);
+
+                                }
+                            });
                         }
 
                     });
@@ -119,3 +147,4 @@ public class RecipeDetail extends AppCompatActivity {
                 }.start();
             }
         }
+
