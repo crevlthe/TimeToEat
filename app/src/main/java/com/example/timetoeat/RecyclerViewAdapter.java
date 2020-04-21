@@ -6,23 +6,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private ArrayList<String> mRecipeItem = new ArrayList<>();
     private ArrayList<String> mRecipeURL = new ArrayList<>();
-    //private ArrayList<String> mRecipeImage = new ArrayList<>();
+    private ArrayList<String> mRecipeImageURL = new ArrayList<>();
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> RecipeItem, ArrayList<String> RecipeURL) {
+    public RecyclerViewAdapter(Context context, ArrayList<String> RecipeItem, ArrayList<String> RecipeURL, ArrayList<String> RecipeImageURL) {
         mRecipeItem = RecipeItem;
         mRecipeURL = RecipeURL;
-        //mRecipeImage = RecipeImage;
+        mRecipeImageURL = RecipeImageURL;
         mContext = context;
     }
 
@@ -37,10 +40,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     //used to add items to the RecyclerView (from the respective ArrayLists)
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-/*        Glide.with(mContext)
+        //use Glide to load image
+        Glide.with(mContext)
                 .asBitmap()
-                .load(mRecipeImage.get(position))
-                .into(holder.RecipeImage);*/
+                .load(mRecipeImageURL.get(position))
+                .into(holder.RecipeImage);
+
         holder.RecipeItem.setText(mRecipeItem.get(position));
 
         holder.ParentLayout.setOnClickListener(new View.OnClickListener() {
@@ -65,13 +70,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     //outlines what will be set in the new View (within the RecyclerView)
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView RecipeItem;
-        //ImageView RecipeImage;
+        ImageView RecipeImage;
         RelativeLayout ParentLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             RecipeItem = itemView.findViewById(R.id.card_text);
-            //RecipeImage = itemView.findViewById(R.id.card_image);
+            RecipeImage = itemView.findViewById(R.id.card_image);
             ParentLayout = itemView.findViewById(R.id.parent_layout);
         }
     }

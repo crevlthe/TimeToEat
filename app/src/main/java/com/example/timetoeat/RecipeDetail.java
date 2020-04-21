@@ -84,17 +84,21 @@ public class RecipeDetail extends AppCompatActivity {
 
                     //Recipe name
                     final Elements recipe_name_1 = doc.select("h1.recipe-summary__h1");
+                    //Feature style article
+                    //https://www.allrecipes.com/recipe/231030/braised-corned-beef-brisket/
+
                     final Elements recipe_name_2 = doc.select("h1.headline");
+                    //General style article
+                    //https://www.allrecipes.com/recipe/223042/chicken-parmesan/
 
                     //Recipe steps
-                    Elements steps_1 = doc.select("span.recipe-directions__list--item");
-                    if (steps_1.hasText() == false) {
-                        steps_1 = doc.select(".section-body");
+                    Elements steps = doc.select("span.recipe-directions__list--item");
+                    if (steps.hasText() == false) {
+                        steps = doc.select(".section-body");
                     }
 
                     //Recipe ingredients
                     Elements ingredients = doc.select(".ingredients-item");
-
 
                     for (Element ingredient : ingredients) {
                         //recipe_name_ingredients.append("\u25AA ").append(ingredient.attr("value"));
@@ -107,13 +111,33 @@ public class RecipeDetail extends AppCompatActivity {
                         IngredientCount++;
                     }
 
-                    for (Element step : steps_1) {
-                        if (StepCount < steps_1.size()) {
+                    //Recipe steps
+                    for (Element step : steps) {
+                        if (StepCount < steps.size()) {
                             recipe_name_body.append(StepCount).append(". ").append(step.text()).append("\n").append("\n");
                             StepCount++;
                         }
                     }
 
+                    //Recipe images
+
+                    //Feature style article
+                    /*img.rec-photo
+                    attr("src")
+
+                    ul.photo-strip__items
+                    for each img,
+                    if img class="imageBlur", exclude otherwise
+                        add to list
+                     */
+
+                    //General style article
+                    /*div.inner-container js-inner-container  image-overlay
+                    attr("src")
+
+                    and then retrieve all from
+                    div.image-slide a.ugc-photos-link div.component.lazy-image.lazy-image-udf.aspect_1x1.rendered.image-loaded
+                    attr("data-src")*/
 
                     runOnUiThread(new Runnable() {
                         @Override
@@ -125,6 +149,11 @@ public class RecipeDetail extends AppCompatActivity {
                             }
                             RecipeIngredients.setText(recipe_name_ingredients.toString());
                             RecipeBody.setText(recipe_name_body.toString());
+
+
+
+
+
                             saveRecipe.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

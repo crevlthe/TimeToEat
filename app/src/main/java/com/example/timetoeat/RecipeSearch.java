@@ -27,7 +27,7 @@ public class RecipeSearch extends AppCompatActivity {
 
     private ArrayList<String> mRecipeItems = new ArrayList<>();
     private ArrayList<String> mRecipeURLs = new ArrayList<>();
-    //private ArrayList<String> mRecipeImages = new ArrayList<>();
+    private ArrayList<String> mRecipeImageURLs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class RecipeSearch extends AppCompatActivity {
                 //to another activity)
                 mRecipeItems.clear();
                 mRecipeURLs.clear();
+                mRecipeImageURLs.clear();
                 getSearchResults();
             }
         });
@@ -74,8 +75,12 @@ public class RecipeSearch extends AppCompatActivity {
                     //Recipe name
                     for (Element search_item : search_items){
                         mRecipeItems.add(search_item.select("span.fixed-recipe-card__title-link").text());
-                        //Log.d("CapturedURL",search_item.select("a").first().attr("href"));
                         mRecipeURLs.add(search_item.select("a").first().attr("href"));
+                        mRecipeImageURLs.add(search_item.select("img.fixed-recipe-card__img").attr("data-original-src"));
+
+                        //Log.d("CapturedURL",search_item.select("a").first().attr("href"));
+                        //Log.d("RecipeImageURL",search_item.select("img.fixed-recipe-card__img").attr("data-original-src"));
+                        //Log.d("RecipeImages", mRecipeImageURLs.toString());
                         }
 
                     runOnUiThread(new Runnable(){
@@ -98,7 +103,7 @@ public class RecipeSearch extends AppCompatActivity {
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         //RecyclerViewAdapter adapter = new RecyclerViewAdapter (this, mRecipeItems, mRecipeImages);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter (this, mRecipeItems, mRecipeURLs);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter (this, mRecipeItems, mRecipeURLs, mRecipeImageURLs);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
