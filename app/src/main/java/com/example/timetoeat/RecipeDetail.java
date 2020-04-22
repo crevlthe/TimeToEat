@@ -2,11 +2,16 @@ package com.example.timetoeat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Gallery;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -20,8 +25,10 @@ public class RecipeDetail extends AppCompatActivity {
     private TextView RecipeTitle;
     private TextView RecipeIngredients;
     private TextView RecipeBody;
+    private ImageView RecipeImage;
     private Button getBtn;
     private String RecipeURL;
+    private String RecipeImageURL;
     private Button saveRecipe;
 
     @Override
@@ -40,6 +47,7 @@ public class RecipeDetail extends AppCompatActivity {
         RecipeTitle = (TextView) findViewById(R.id.text_recipe_title);
         RecipeIngredients = (TextView) findViewById(R.id.text_recipe_ingredients);
         RecipeBody = (TextView) findViewById(R.id.text_recipe_body);
+        RecipeImage = (ImageView) findViewById(R.id.image_recipe);
         saveRecipe = (Button) findViewById(R.id.button_saverecipe);
 
         getRecipe();
@@ -85,17 +93,38 @@ public class RecipeDetail extends AppCompatActivity {
                     //Recipe name
                     final Elements recipe_name_1 = doc.select("h1.recipe-summary__h1");
                     //Feature style article
-                    //https://www.allrecipes.com/recipe/231030/braised-corned-beef-brisket/
+                    //https://www.allrecipes.com/recipe/274419/creamy-chicken-rice-soup/
 
                     final Elements recipe_name_2 = doc.select("h1.headline");
                     //General style article
                     //https://www.allrecipes.com/recipe/223042/chicken-parmesan/
 
-                    //Recipe steps
+                    //Set filtering based on Feature style article or General style article template
+                    //if "span.recipe-directions__list--item" exists, then it is a Feature style article
                     Elements steps = doc.select("span.recipe-directions__list--item");
                     if (steps.hasText() == false) {
                         steps = doc.select(".section-body");
-                    }
+                        RecipeImageURL = doc.select("div.lead-content-wrapper.two-col-style > aside.primary-media-section.primary-media-with-filmstrip > div.image-container > div.component.lazy-image").attr("data-src");
+                    } else RecipeImageURL = doc.select("img.rec-photo").attr("src");
+
+                    //Recipe images
+                    //Feature style article
+                    /*img.rec-photo
+                    attr("src")
+
+                    ul.photo-strip__items
+                    for each img,
+                    if img class="imageBlur", exclude otherwise
+                        add to list
+                     */
+
+                    //General style article
+                    /*div.inner-container js-inner-container  image-overlay
+                    attr("src")
+
+                    and then retrieve all from
+                    div.image-slide a.ugc-photos-link div.component.lazy-image.lazy-image-udf.aspect_1x1.rendered.image-loaded
+                    attr("data-src")*/
 
                     //Recipe ingredients
                     Elements ingredients = doc.select(".ingredients-item");
@@ -119,40 +148,22 @@ public class RecipeDetail extends AppCompatActivity {
                         }
                     }
 
-                    //Recipe images
-
-                    //Feature style article
-                    /*img.rec-photo
-                    attr("src")
-
-                    ul.photo-strip__items
-                    for each img,
-                    if img class="imageBlur", exclude otherwise
-                        add to list
-                     */
-
-                    //General style article
-                    /*div.inner-container js-inner-container  image-overlay
-                    attr("src")
-
-                    and then retrieve all from
-                    div.image-slide a.ugc-photos-link div.component.lazy-image.lazy-image-udf.aspect_1x1.rendered.image-loaded
-                    attr("data-src")*/
-
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             if (recipe_name_1.hasText() == false) {
+                                //use Glide to load image
+                                Glide.with(RecipeImage.getContext())
+                                        .asBitmap()
+                                        .load(RecipeImageURL)
+                                        .into(RecipeImage);
+
                                 RecipeTitle.setText(recipe_name_2.first().text());
-                            } else {
-                                RecipeTitle.setText(recipe_name_1.first().text());
-                            }
+
+                            } else RecipeTitle.setText(recipe_name_1.first().text());
+
                             RecipeIngredients.setText(recipe_name_ingredients.toString());
                             RecipeBody.setText(recipe_name_body.toString());
-
-
-
-
 
                             saveRecipe.setOnClickListener(new View.OnClickListener() {
                                 @Override
