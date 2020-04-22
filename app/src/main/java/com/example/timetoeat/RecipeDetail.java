@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.Target;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -156,6 +157,8 @@ public class RecipeDetail extends AppCompatActivity {
                                 Glide.with(RecipeImage.getContext())
                                         .asBitmap()
                                         .load(RecipeImageURL)
+                                        //.override(Target.SIZE_ORIGINAL, 350)
+                                        .fitCenter()
                                         .into(RecipeImage);
 
                                 RecipeTitle.setText(recipe_name_2.first().text());

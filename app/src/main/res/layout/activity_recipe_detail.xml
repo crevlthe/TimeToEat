@@ -11,12 +11,14 @@
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <ImageView
             android:id="@+id/image_recipe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="350dp"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher" />
 
