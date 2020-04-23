@@ -24,7 +24,7 @@ public class ToBuyList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_buy_list);
 
-        //ListView listView = (ListView) findViewById(R.id.list_container);
+        ListView listView = (ListView) findViewById(R.id.myListView);
 
 
         Intent intent = getIntent();
@@ -38,8 +38,8 @@ public class ToBuyList extends AppCompatActivity {
 
         Log.i(TAG, "ingredients - " + ingredients);
 
-        //ListViewAdapter adapter = new ListViewAdapter(Ingredients, this);
-        //listView.setAdapter(adapter);
+        ListViewAdapter adapter = new ListViewAdapter(Ingredients, this);
+        listView.setAdapter(adapter);
 
     }
 }
