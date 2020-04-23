@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/checkbox_container"
-        android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/myListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleX="0.50"
-        android:scaleY="0.50"
-        android:layout_marginBottom= "-10dp">
+        android:layout_height="match_parent"/>
 
+</RelativeLayout>
 
-</LinearLayout>
-
-    <!--
-    <TextView
-        android:id="@+id/groceryList"
-        android:layout_width="235dp"
-        android:layout_height="88dp"
-        android:layout_marginTop="99dp"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
