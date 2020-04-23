@@ -7,6 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".RecipeDetail">
 
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <ProgressBar
         android:id="@+id/ProgressBar"
         android:layout_width="wrap_content"
@@ -74,5 +78,6 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
     </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.core.widget.NestedScrollView>

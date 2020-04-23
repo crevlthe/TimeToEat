@@ -49,6 +49,7 @@ public class RecipeSearch extends AppCompatActivity {
             }
         });
 
+
     }
 
     private void getSearchResults() {
