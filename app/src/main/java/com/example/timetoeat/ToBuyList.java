@@ -8,24 +8,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
-
 public class ToBuyList extends AppCompatActivity {
 
-    private static final String TAG = "ToBuyList";
+    //private static final String TAG = "ToBuyList";
+
+    private ListView listView;
+    private ListViewAdapter adapter;
+    private List<String> Ingredients = new ArrayList<>();
+
+
+    public static boolean isActionMode = false;
+    public static List<String> UserSelection = new ArrayList<>();
+    public static ActionMode actionMode = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_buy_list);
 
-        ListView listView = (ListView) findViewById(R.id.myListView);
-
+        listView = (ListView) findViewById(R.id.myListView);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
@@ -33,15 +45,67 @@ public class ToBuyList extends AppCompatActivity {
 
         assert ingredients != null;
         String[] ingredients_split = ingredients.split("\u25AA");
-        List<String> Ingredients = new ArrayList<String>();
-        Ingredients = Arrays.asList(ingredients_split);
+        Ingredients = new ArrayList(Arrays.asList(ingredients_split));
+        Ingredients.remove(0);
 
-        Log.i(TAG, "ingredients - " + ingredients);
+        Log.i("TEEEEST", "ingredients - " + Ingredients);
 
-        ListViewAdapter adapter = new ListViewAdapter(Ingredients, this);
+        listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listView.setMultiChoiceModeListener(modeListener);
+
+        adapter = new ListViewAdapter(Ingredients, this);
         listView.setAdapter(adapter);
 
     }
+
+    AbsListView.MultiChoiceModeListener modeListener = new AbsListView.MultiChoiceModeListener() {
+        @Override
+        public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            MenuInflater menuInflater = mode.getMenuInflater();
+            menuInflater.inflate(R.menu.context_menu,menu);
+            isActionMode = true;
+            actionMode = mode;
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
+            switch (item.getItemId()){
+                case R.id.action_delete:
+                    adapter.removeItems(UserSelection);
+                    mode.finish();
+                    return true;
+                case R.id.action_share:
+                    Intent intent = new Intent(ToBuyList.this, GroceryListFinal.class);
+                    Bundle extras = new Bundle();
+                    extras.putString("GROCERIES", String.valueOf(UserSelection));
+                    intent.putExtras(extras);
+                    startActivity(intent);
+                default:
+                    return false;
+            }
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            isActionMode = false;
+            actionMode = null;
+            UserSelection.clear();
+        }
+    };
+
+
 }
 
 
