@@ -14,10 +14,15 @@
     <string name="activity_main_recommend_recipe">Recommend a recipe...</string>
 
     <string name="activity_main_subheading1">Start searching</string>
-    <string name="activity_main_search_recipe">Search recipes</string>
-    <string name="activity_main_saved_recipes">Saved Recipes</string>
+    <string name="activity_main_search_recipe">Search Now</string>
+    <string name="activity_main_change_prefs">Preferences</string>
 
     <string name="activity_main_subheading2">Saved lists</string>
     <string name="activity_main_to_buy_list">To Buy List</string>
+    <string name="activity_main_saved_recipes">Saved Recipes</string>
+
+    <string name="activity_main_logout">Logout</string>
+
+    <string name="activity_recipe_search_input_hint">Search for...</string>
 
 </resources>

@@ -35,7 +35,7 @@ public class RecipeSearch extends AppCompatActivity {
         setContentView(R.layout.activity_recipe_search);
         //RecipeTitle = (TextView) findViewById(R.id.text_search_title);
         //RecipeDescription = (TextView) findViewById(R.id.text_search_description);
-        SearchBar = (TextView) findViewById(R.id.text_searchbar);
+        SearchBar = (TextView) findViewById(R.id.input_search);
         searchBtn = (Button) findViewById(R.id.button_search);
         searchBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -108,4 +108,10 @@ public class RecipeSearch extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
+    public void CloseActivity(View view){
+        finish();
+    }
+
 }
+

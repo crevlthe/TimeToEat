@@ -24,4 +24,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void Logout(View view){
+        finish();
+    }
+
 }
