@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent_layout"
     style="@style/CardView.Light"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="8dp"
-        card_view:cardElevation="2dp"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardBackgroundColor="@android:color/white">
+        card_view:cardBackgroundColor="@color/colorGrayLight"
+        card_view:cardElevation="1dp"
+        card_view:cardUseCompatPadding="true">
 
         <ImageView
             android:id="@+id/card_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_marginBottom="8dp"
+            android:src="@mipmap/ic_launcher" />
 
         <TextView
             android:id="@+id/card_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="This is a test"
-            android:layout_toRightOf="@id/card_image"
             android:layout_centerVertical="true"
-            android:layout_marginTop="8dp"
             android:layout_marginLeft="95dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/card_image"
+            android:text="This is a test"
 
-            android:textSize="17sp"/>
+            android:textSize="24sp" />
 
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

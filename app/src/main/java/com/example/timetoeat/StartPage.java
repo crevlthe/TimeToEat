@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class FirstPage extends AppCompatActivity {
+public class StartPage extends AppCompatActivity {
 
     TextView t;
     TextView register;
@@ -20,7 +20,7 @@ public class FirstPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first_page);
+        setContentView(R.layout.activity_start_page);
 
 
         t = (TextView) findViewById(R.id.appName);
@@ -32,7 +32,7 @@ public class FirstPage extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(FirstPage.this, Register.class));
+                startActivity(new Intent(StartPage.this, Register.class));
             }
         });
 
@@ -41,7 +41,7 @@ public class FirstPage extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(FirstPage.this, Login.class));
+                startActivity(new Intent(StartPage.this, Login.class));
 
             }
         });

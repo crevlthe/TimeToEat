@@ -14,6 +14,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void ChangePreferences(View view){
+        Intent intent = new Intent(this, Preferences.class);
+        startActivity(intent);
+    }
+
     public void SearchRecipes(View view) {
         Intent intent = new Intent(this, RecipeSearch.class);
         startActivity(intent);
