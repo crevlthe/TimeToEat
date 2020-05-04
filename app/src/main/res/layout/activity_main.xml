@@ -6,15 +6,129 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/image_banner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/activity_main_banner" />
+
+    <TextView
+        android:id="@+id/title_feelinghungry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/activity_main_heading"
+        android:textAlignment="center"
+        android:textColor="@color/colorGrayDark3"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/button_recommendrecipes"
+        app:layout_constraintEnd_toEndOf="@+id/image_banner"
+        app:layout_constraintStart_toStartOf="@+id/image_banner"
+        app:layout_constraintTop_toTopOf="@+id/image_banner"
+        app:layout_constraintVertical_chainStyle="packed" />
+
     <Button
-        android:id="@+id/button_searchrecipes"
+        android:id="@+id/button_recommendrecipes"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/button_round_accent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/activity_main_recommend_recipe"
+        android:textAllCaps="false"
+        android:textColor="@color/colorGray"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/image_banner"
+        app:layout_constraintEnd_toEndOf="@+id/image_banner"
+        app:layout_constraintStart_toStartOf="@+id/image_banner"
+        app:layout_constraintTop_toBottomOf="@+id/title_feelinghungry" />
+
+    <TextView
+        android:id="@+id/title_recipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:onClick="SearchRecipes"
-        android:text="Search Recipe"
+        android:text="@string/activity_main_subheading1"
+        android:textColor="@color/colorGrayDark1"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/image_banner" />
+
+    <Button
+        android:id="@+id/button_searchrecipes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/colorGrayDark2"
+        android:drawableTop="@drawable/ic_search_white_24dp"
+        android:onClick="SearchRecipes"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/activity_main_search_recipe"
+        android:textAllCaps="false"
+        android:textColor="@color/colorGray"
+        app:layout_constraintEnd_toStartOf="@+id/button_savedrecipes"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_recipes" />
+
+    <Button
+        android:id="@+id/button_savedrecipes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:background="@color/colorGray"
+        android:drawableTop="@drawable/ic_bookmark_black_24dp"
+        android:onClick="SearchRecipes"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/activity_main_saved_recipes"
+        android:textAllCaps="false"
+        android:textColor="@color/colorGrayDark3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_searchrecipes"
+        app:layout_constraintTop_toTopOf="@+id/button_searchrecipes" />
+
+    <TextView
+        android:id="@+id/title_lists"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/activity_main_subheading2"
+        android:textColor="@color/colorGrayDark1"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_searchrecipes" />
+
+    <Button
+        android:id="@+id/button_savedingredients"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorGray"
+        android:drawableTop="@drawable/ic_format_list_bulleted_black_24dp"
+        android:onClick="ViewBuyList"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/activity_main_to_buy_list"
+        android:textAllCaps="false"
+        android:textColor="@color/colorGrayDark3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_lists" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

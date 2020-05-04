@@ -113,6 +113,9 @@ public class RecipeDetail extends AppCompatActivity {
                     /*img.rec-photo
                     attr("src")
 
+                    a class="video-play"
+                    https://www.allrecipes.com/recipe/258494/chinese-barbeque-pork-char-siu/?internalSource=hub%20recipe&referringContentType=Search&clickId=cardslot%201
+
                     ul.photo-strip__items
                     for each img,
                     if img class="imageBlur", exclude otherwise

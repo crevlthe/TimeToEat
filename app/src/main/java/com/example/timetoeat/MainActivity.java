@@ -18,4 +18,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RecipeSearch.class);
         startActivity(intent);
     }
+
+    public void ViewBuyList(View view){
+        Intent intent = new Intent(this, ToBuyList.class);
+        startActivity(intent);
+    }
+
 }
