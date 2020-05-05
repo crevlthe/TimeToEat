@@ -8,11 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.AbsListView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -89,13 +91,50 @@ public class ToBuyList extends AppCompatActivity {
                 case R.id.action_share:
                     Intent intent = new Intent(ToBuyList.this, GroceryListFinal.class);
                     Bundle extras = new Bundle();
-                    extras.putString("GROCERIES", String.valueOf(UserSelection));
-                    intent.putExtras(extras);
+                    intent.putStringArrayListExtra("GROCERIES", (ArrayList<String>) UserSelection);
+
+                    //extras.putString("GROCERIES", String.valueOf(UserSelection));
+                    //intent.putExtras(extras);
                     startActivity(intent);
+                    Log.i("TEEEEST", "ingredients - " + UserSelection);
+                    //Log.i("TEEEEST2", "ingredients - " + Arrays.asList(userselection));
+
+
+                    //Bundle extras = new Bundle();
+                    //extras.putStringArray("GROCERIES", UserSelection);
+                    //Intent intent = new Intent(ToBuyList.this, GroceryListFinal.class);
+                    //intent.putExtras(extras);
+
+
+                    /*case R.id.select_all:
+                        CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
+                        //int itemCount = listView.getCount();
+                        for(int i=0; i < listView.getChildCount(); i++){
+                            listView.setItemChecked(i, checkBox.isChecked());
+                        }
+                        /*int checkedItemCount = getCheckedItemCount();
+                        if(listView.getCount() == checkedItemCount){
+                            checkBox.setChecked(true);
+                        } else{
+                            checkBox.setChecked(false);
+                        }*/
                 default:
                     return false;
             }
         }
+
+        /*private int getCheckedItemCount(){
+            int cnt = 0;
+            SparseBooleanArray positions = listView.getCheckedItemPositions();
+            int itemCount = listView.getCount();
+
+            for (int i=0; i<itemCount; i++){
+                if(positions.get(i)){
+                    cnt++;
+                }
+            }
+            return cnt;
+        }*/
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {

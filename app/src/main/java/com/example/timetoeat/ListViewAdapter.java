@@ -29,6 +29,7 @@ public class ListViewAdapter extends ArrayAdapter<String> {
         super(context, R.layout.row,Ingredients);
         this.context = context;
         this.Ingredients = Ingredients;
+
     }
 
     @NonNull
