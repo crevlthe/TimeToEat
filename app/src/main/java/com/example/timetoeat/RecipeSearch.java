@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class RecipeSearch extends AppCompatActivity {
-
     private TextView RecipeTitle;
     private TextView RecipeDescription;
     private TextView SearchBar;
@@ -114,4 +113,3 @@ public class RecipeSearch extends AppCompatActivity {
     }
 
 }
-
