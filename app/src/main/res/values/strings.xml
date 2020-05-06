@@ -21,7 +21,9 @@
     <string name="activity_main_to_buy_list">To Buy List</string>
     <string name="activity_main_saved_recipes">Saved Recipes</string>
 
+    <string name="my_recipe">My Recipes</string>
     <string name="activity_main_logout">Logout</string>
+
 
     <string name="activity_recipe_search_input_hint">Search for...</string>
 
