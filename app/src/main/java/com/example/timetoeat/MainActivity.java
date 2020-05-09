@@ -29,11 +29,16 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void Logout(View view){
-        finish();
+    public void FindNearest(View view){
+        Intent intent = new Intent(this, ToBuyList.class);
+        startActivity(intent);
     }
 
     public void MyRecipe(View view) {
         Intent intent = new Intent(this, PersonalRecipe.class);
         startActivity(intent); }
+
+    public void Logout(View view){
+        finish();
+    }
 }
