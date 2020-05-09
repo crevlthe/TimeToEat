@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".My_Recipes"
+    tools:context=".PersonalRecipe"
     android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -21,8 +21,7 @@
         android:text="Upload Recipe"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:onClick="btn_uploadActivity"/>
+        android:layout_alignParentBottom="true"/>
 
 
 </RelativeLayout>

@@ -156,8 +156,8 @@
 
     <Button
         android:id="@+id/button_uploadRecipe"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="182dp"
+        android:layout_height="46dp"
         android:layout_marginEnd="236dp"
         android:layout_marginBottom="16dp"
         android:background="@color/colorGray"
@@ -169,7 +169,7 @@
         android:textColor="@color/colorGrayDark3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/button_tobuylist" />
 
     <Button
@@ -188,5 +188,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/button_savedrecipes" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

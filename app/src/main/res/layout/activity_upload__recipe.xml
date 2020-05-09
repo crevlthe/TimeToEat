@@ -19,46 +19,23 @@
             android:scaleType="centerCrop"
             android:id="@+id/iv_foodImage"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Recipe Name"
-            android:layout_marginTop="20dp"
-            android:textSize="19sp"
-            android:id="@+id/txt_recipe_name"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Ingredients"
-            android:layout_marginTop="10dp"
-            android:textSize="19sp"
-            android:id="@+id/txt_ingredients"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Description"
-            android:layout_marginTop="10dp"
-            android:textSize="19sp"
-            android:id="@+id/text_description"/>
-
         <Button
+            android:id="@+id/bnt_select_image"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="Select Image"
             android:textSize="22sp"
             android:backgroundTint="@color/colorSecondary"
-            android:textColor="#ffffff"
-            android:onClick="btnSelectImage"/>
+            android:textColor="#ffffff" />
         <Button
+            android:id="@+id/bnt_upload_image"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:text="Upload Recipe"
             android:textSize="22sp"
             android:backgroundTint="@color/colorSecondary"
-            android:textColor="#ffffff"
-            android:onClick="btnUploadRecipe"/>
+            android:textColor="#ffffff"/>
+
 
     </LinearLayout>
 
