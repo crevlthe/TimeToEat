@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -36,6 +37,8 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -45,6 +48,7 @@ public class Upload_Recipe extends AppCompatActivity {
     private Button btnSelectImg;
     private Button btnUploadImg;
     private ImageView uploadedImg;
+    private EditText recName, recIngredients, recTitle;
 
     private String currentUserID;
     private FirebaseAuth mAuth;
@@ -54,7 +58,7 @@ public class Upload_Recipe extends AppCompatActivity {
     private StorageReference storageReference;
 
     private static final int GalleryPic = 1;
-    private ProgressDialog loadingBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +68,10 @@ public class Upload_Recipe extends AppCompatActivity {
         btnSelectImg = (Button) findViewById(R.id.bnt_select_image);
         btnUploadImg = (Button) findViewById(R.id.bnt_upload_image);
         uploadedImg = (ImageView) findViewById(R.id.iv_foodImage);
-        loadingBar = new ProgressDialog(this);
+        recName = (EditText) findViewById(R.id.recipe_title);
+        recIngredients = (EditText) findViewById(R.id.recipe_ingredients);
+        recTitle = (EditText) findViewById(R.id.recipe_description);
+
 
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
@@ -134,14 +141,23 @@ public class Upload_Recipe extends AppCompatActivity {
                             final String myCurrentDateTime = DateFormat.getDateTimeInstance()
                                     .format(Calendar.getInstance().getTime());
 
+                            Map<String, PersonalRecipeInfo> recipes = new HashMap<>();
+
+                            recipes.put("don't know what's here", new PersonalRecipeInfo(
+                                    recName.getText().toString(),
+                                    recIngredients.getText().toString(),
+                                    recTitle.getText().toString(),
+                                    (String) newURL
+                            ));
+
                             RootRef.child("Recipes").child(myCurrentDateTime).child("ImageItem")
-                                    .setValue(newURL)
+                                    //.setValue(newURL)
+                                    .setValue(recipes)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                                 Toast.makeText(Upload_Recipe.this, "Image Saved to the Database", Toast.LENGTH_SHORT).show();
-                                                loadingBar.dismiss();
                                             } else {
                                                 String message = task.getException().toString();
                                                 Toast.makeText(Upload_Recipe.this, "Error" + message, Toast.LENGTH_SHORT);
@@ -151,9 +167,6 @@ public class Upload_Recipe extends AppCompatActivity {
                         }
                     });
                 }
-
-
-
 
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -171,11 +184,9 @@ public class Upload_Recipe extends AppCompatActivity {
                 }
             });
 
-
-
+    }
     }
 
-    }
 }
 
 
