@@ -81,7 +81,7 @@ public class Upload_Recipe extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference=storage.getReference();
 
-/*
+
 
         btnSelectImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +100,7 @@ public class Upload_Recipe extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), PersonalRecipe.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
 
     }
@@ -187,7 +187,7 @@ public class Upload_Recipe extends AppCompatActivity {
                 }
             });
 
-    }*/
+    }
     }
 
 }
