@@ -80,10 +80,27 @@ public class RecipeRecommend extends AppCompatActivity {
                     String isKeyIncluded = Snap.getValue(String.class);
                     if (isKeyIncluded != null) {
                         if (Snap.getValue(String.class).equals("True")) {
-                            String key = Snap.getKey();
-                            mCuisines.add(key);
+                            mCuisines.add(Snap.getKey());
                         }
                     }
+                }
+
+                //Add all if no preferences have been selected
+                if (mCuisines.size() == 0){
+                    mCuisines.add("American");
+                    mCuisines.add("Chinese");
+                    mCuisines.add("English");
+                    mCuisines.add("Indian");
+                    mCuisines.add("Italian");
+                    mCuisines.add("Japanese");
+                    mCuisines.add("Mediterranean");
+                    mCuisines.add("Mexican");
+                    mCuisines.add("Moroccan");
+                    mCuisines.add("Spanish");
+                    mCuisines.add("Thai");
+                    mCuisines.add("Turkish");
+                    mCuisines.add("Vietnamese");
+                    Toast.makeText(RecipeRecommend.this,"Showing all results due to no preference. This can be changed under Preferences.",Toast.LENGTH_LONG).show();
                 }
 
                 for (DataSnapshot Snap : dataSnapshot.child("allergies").getChildren()) {
