@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@null"
-            android:text="British"
+            android:text="Chinese"
             android:textSize="16sp"
             android:theme="@style/AppThemeMaterial" />
 
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@null"
-            android:text="Chinese"
+            android:text="English"
             android:textSize="16sp"
             android:theme="@style/AppThemeMaterial" />
 
