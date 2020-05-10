@@ -1,18 +1,14 @@
 package com.example.timetoeat;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.ClipData;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.firebase.client.GenericTypeIndicator;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,9 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Preferences extends AppCompatActivity {
     public FirebaseAuth.AuthStateListener authListener;
@@ -51,23 +45,18 @@ public class Preferences extends AppCompatActivity {
         saveBtn = (Button) findViewById(R.id.button_saveprefs);
 
         authListener = new FirebaseAuth.AuthStateListener() {
-            //@Override
+            @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
+                    //User is signed in
                     CurrentUser = firebaseAuth.getUid();
-                    //Log.e("auth",firebaseAuth.getUid());
 
                     //Get current settings first and load them into chipgroups
-                    getPreferences(); // this must be placed within the auth state as this has to wait until the listener has completed initialisation
-
+                    getPreferences(); //This must be placed within the auth state as this has to wait until the listener has completed initialisation
                 } else {
-                    // User is signed out
-                    Log.e("auth","none");
-
+                    //User is signed out
                 }
-                // ...
             }
         };
         FirebaseAuth.getInstance().addAuthStateListener(authListener);
@@ -80,17 +69,13 @@ public class Preferences extends AppCompatActivity {
                 mAllergies.clear();
                 mAllergiesExcl.clear();
                 savePreferences();
+                Toast.makeText(Preferences.this, "Preferences saved!", Toast.LENGTH_LONG).show();
+                finish();
             }
         });
     }
 
-    private void getPreferences (){
-
-        //Log.d("authuser", CurrentUser);
-        //Log.d("refPerf",mDatabase.child("preferences").child(CurrentUser).toString());
-
-
-
+    private void getPreferences() {
         final DatabaseReference refPreferences = mDatabase.child("preferences").child(CurrentUser);
 
         refPreferences.addValueEventListener(new ValueEventListener() {
@@ -102,8 +87,7 @@ public class Preferences extends AppCompatActivity {
                 for (DataSnapshot Snap : dataSnapshot.child("cuisines").getChildren()) {
                     String isKeyIncluded = Snap.getValue(String.class);
                     if (isKeyIncluded != null) {
-                        //String keyvalue = Snap.getValue(String.class);
-                        if(Snap.getValue(String.class).equals("True")){
+                        if (Snap.getValue(String.class).equals("True")) {
                             String key = Snap.getKey();
                             mCuisines.add(key);
                         }
@@ -113,8 +97,7 @@ public class Preferences extends AppCompatActivity {
                 for (DataSnapshot Snap : dataSnapshot.child("allergies").getChildren()) {
                     String isKeyIncluded = Snap.getValue(String.class);
                     if (isKeyIncluded != null) {
-                        //String keyvalue = Snap.getValue(String.class);
-                        if(Snap.getValue(String.class).equals("True")){
+                        if (Snap.getValue(String.class).equals("True")) {
                             String key = Snap.getKey();
                             mAllergies.add(key);
                         }
@@ -122,7 +105,7 @@ public class Preferences extends AppCompatActivity {
                 }
 
                 if (chipCount1 == 0) {
-
+                    //Do nothing
                 } else {
                     int i = 0;
                     while (i < chipCount1) {
@@ -138,7 +121,7 @@ public class Preferences extends AppCompatActivity {
                 }
 
                 if (chipCount2 == 0) {
-
+                    //Do nothing
                 } else {
                     int i = 0;
                     while (i < chipCount2) {
@@ -150,7 +133,6 @@ public class Preferences extends AppCompatActivity {
                         }
                         i++;
                     }
-
                 }
             }
 
@@ -171,7 +153,7 @@ public class Preferences extends AppCompatActivity {
                     final String PrefString = "Hello";
 
                     if (chipCount1 == 0) {
-
+                        //Do nothing
                     } else {
                         int i = 0;
                         while (i < chipCount1) {
@@ -183,11 +165,10 @@ public class Preferences extends AppCompatActivity {
                             }
                             i++;
                         }
-
                     }
 
                     if (chipCount2 == 0) {
-
+                        //Do nothing
                     } else {
                         int i = 0;
                         while (i < chipCount2) {
@@ -199,18 +180,15 @@ public class Preferences extends AppCompatActivity {
                             }
                             i++;
                         }
-
                     }
 
-                    // update Firebase, true values and false/other values
+                    // Up date Firebase, true values and false/other values
                     for (String mCuisine : mCuisines) {
                         mDatabase.child("preferences").child(CurrentUser).child("cuisines").child(mCuisine).setValue("True");
                     }
                     for (String mCuisineExcl : mCuisinesExcl) {
                         mDatabase.child("preferences").child(CurrentUser).child("cuisines").child(mCuisineExcl).setValue("False");
                     }
-
-
                     for (String mAllergy : mAllergies) {
                         mDatabase.child("preferences").child(CurrentUser).child("allergies").child(mAllergy).setValue("True");
                     }
@@ -228,7 +206,6 @@ public class Preferences extends AppCompatActivity {
                     e.printStackTrace();
                     // Error
                 }
-
             }
         }.start();
     }

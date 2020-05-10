@@ -21,6 +21,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    public void RecommendRecipe(View view){
+        Intent intent = new Intent(this, RecipeRecommend.class);
+        startActivity(intent);
+    }
+
     public void ChangePreferences(View view){
         Intent intent = new Intent(this, Preferences.class);
         startActivity(intent);
