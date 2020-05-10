@@ -81,7 +81,7 @@ public class Upload_Recipe extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference=storage.getReference();
 
-
+/*
 
         btnSelectImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,9 +97,10 @@ public class Upload_Recipe extends AppCompatActivity {
         /*btnUploadImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RetrieveUserInfo();
+                Intent intent = new Intent(getApplicationContext(), PersonalRecipe.class);
+                startActivity(intent);
             }
-        });*/
+        });
 
 
     }
@@ -138,26 +139,28 @@ public class Upload_Recipe extends AppCompatActivity {
                             //Toast.makeText(Upload_Recipe.this, ""+uri.toString(), Toast.LENGTH_SHORT).show();
                             Glide.with(Upload_Recipe.this).load(newURL).into(uploadedImg);
 
+
                             final String myCurrentDateTime = DateFormat.getDateTimeInstance()
                                     .format(Calendar.getInstance().getTime());
 
                             Map<String, PersonalRecipeInfo> recipes = new HashMap<>();
 
-                            recipes.put("don't know what's here", new PersonalRecipeInfo(
+                            recipes.put(myCurrentDateTime, new PersonalRecipeInfo(
                                     recName.getText().toString(),
                                     recIngredients.getText().toString(),
                                     recTitle.getText().toString(),
                                     (String) newURL
                             ));
 
-                            RootRef.child("Recipes").child(myCurrentDateTime).child("ImageItem")
+                            RootRef.child("Recipes")
                                     //.setValue(newURL)
                                     .setValue(recipes)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                                Toast.makeText(Upload_Recipe.this, "Image Saved to the Database", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(getApplicationContext(), PersonalRecipe.class));
+                                                //Toast.makeText(Upload_Recipe.this, "Image Saved to the Database", Toast.LENGTH_SHORT).show();
                                             } else {
                                                 String message = task.getException().toString();
                                                 Toast.makeText(Upload_Recipe.this, "Error" + message, Toast.LENGTH_SHORT);
@@ -184,7 +187,7 @@ public class Upload_Recipe extends AppCompatActivity {
                 }
             });
 
-    }
+    }*/
     }
 
 }
