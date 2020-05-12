@@ -5,7 +5,7 @@
     style="@style/CardView.Light"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="8dp">
+    android:paddingBottom="4dp"> <!--Padding in between the individual cards-->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
