@@ -69,7 +69,6 @@ public class PersonalRecipe extends AppCompatActivity {
         DataReference = FirebaseDatabase.getInstance().getReference().child("Recipes");
 
 
-
         /*DataReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override

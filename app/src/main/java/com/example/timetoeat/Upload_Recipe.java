@@ -133,14 +133,22 @@ public class Upload_Recipe extends AppCompatActivity {
                             final String myCurrentDateTime = DateFormat.getDateTimeInstance()
                                     .format(Calendar.getInstance().getTime());
 
-                            Map<String, PersonalRecipeInfo> recipes = new HashMap<>();
+                            Map<String, Object> recipes = new HashMap<>();
+                            recipes.put("recipeName", recName.getText().toString());
+                            recipes.put("recipeIngredients", recIngredients.getText().toString());
+                            recipes.put("recipeTitle",recTitle.getText().toString());
+                            recipes.put("imgUrl", (String) newURL);
+
+
+                            /*Map<String, PersonalRecipeInfo> recipes = new HashMap<>();
+
 
                             recipes.put("SingleItem", new PersonalRecipeInfo(
                                     recName.getText().toString(),
                                     recIngredients.getText().toString(),
                                     recTitle.getText().toString(),
                                     (String) newURL
-                            ));
+                            ));*/
 
                             RootRef.child("Recipes").child(myCurrentDateTime)
                                     //.setValue(newURL)
