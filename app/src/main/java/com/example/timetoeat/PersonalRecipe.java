@@ -120,21 +120,6 @@ public class PersonalRecipe extends AppCompatActivity {
 
     }
 
-    /*private void collectReferences(Map<String, PersonalRecipeInfo> recipes) {
-        ArrayList<String> PersonalRecipeInfo = new ArrayList<>();
-
-        //iterate through each user, ignoring their UID
-        for (Map.Entry<String, PersonalRecipeInfo> entry : recipes.entrySet()){
-
-            //Get user map
-            Map singleRecipe = (Map) entry.getValue();
-            //Get phone field and append to list
-            PersonalRecipeInfo.add((String) singleRecipe.get("imgUrl"));
-            PersonalRecipeInfo.add((String) singleRecipe.get("recipeName"));
-        }
-
-        Log.i("INFOOOOOO", PersonalRecipeInfo.toString());
-    }*/
 
 
     private void LoadData(){
@@ -148,12 +133,25 @@ public class PersonalRecipe extends AppCompatActivity {
 
 
             @Override
-            protected void onBindViewHolder(@NonNull FirebaseViewHolder holder, int i, @NonNull final DataSetFire dataSetFire) {
+            protected void onBindViewHolder(@NonNull FirebaseViewHolder holder, final int i, @NonNull final DataSetFire dataSetFire) {
                 data.add(dataSetFire);
 
                 holder.recipeName.setText(data.get(i).getRecipeName());
                 Glide.with(PersonalRecipe.this).load(data.get(i).getImgUrl()).into(holder.imgUrl);
                 //Picasso.get().load(dataSetFire.getImgUrl()).into(firebaseViewHolder.recImg);
+
+                holder.ParentLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View View) {
+                        Intent intent = new Intent(getApplicationContext(), Main2Activity.class);
+                        intent.putExtra("RecipeName", data.get(i).getRecipeName());
+                        intent.putExtra("imgUrl", data.get(i).getImgUrl());
+                        intent.putExtra("RecIngredients", data.get(i).getRecipeIngredients());
+                        intent.putExtra("RecDescription",data.get(i).getRecipeDescription());
+
+                        startActivity(intent);
+                    }
+                });
 
             }
 

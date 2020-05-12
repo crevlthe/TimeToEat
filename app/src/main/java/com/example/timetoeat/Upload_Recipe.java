@@ -39,7 +39,7 @@ public class Upload_Recipe extends AppCompatActivity {
     private Button btnSelectImg;
     private Button btnUploadImg;
     private ImageView uploadedImg;
-    private EditText recName, recIngredients, recTitle;
+    private EditText recName, recIngredients, recDescription;
 
     private String currentUserID;
     private FirebaseAuth mAuth;
@@ -61,7 +61,7 @@ public class Upload_Recipe extends AppCompatActivity {
         uploadedImg = (ImageView) findViewById(R.id.iv_foodImage);
         recName = (EditText) findViewById(R.id.recipe_title);
         recIngredients = (EditText) findViewById(R.id.recipe_ingredients);
-        recTitle = (EditText) findViewById(R.id.recipe_description);
+        recDescription = (EditText) findViewById(R.id.recipe_description);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -113,7 +113,7 @@ public class Upload_Recipe extends AppCompatActivity {
             progressDialog.show();
 
             String image = currentUserID;
-            userProfileImagesRef.child("RecipeImages").putFile(ImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            userProfileImagesRef.putFile(ImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
@@ -136,7 +136,7 @@ public class Upload_Recipe extends AppCompatActivity {
                             Map<String, Object> recipes = new HashMap<>();
                             recipes.put("recipeName", recName.getText().toString());
                             recipes.put("recipeIngredients", recIngredients.getText().toString());
-                            recipes.put("recipeTitle",recTitle.getText().toString());
+                            recipes.put("recipeDescription",recDescription.getText().toString());
                             recipes.put("imgUrl", (String) newURL);
 
 
