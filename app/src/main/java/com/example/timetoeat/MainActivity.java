@@ -22,8 +22,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void RecommendRecipe(View view){
-        Intent intent = new Intent(this, RecipeRecommend.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, RecipeRecommend.class);
+        //startActivity(intent);
     }
 
     public void ChangePreferences(View view){
@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void MyRecipe(View view) {
-        Intent intent = new Intent(this, PersonalRecipe.class);
-        startActivity(intent); }
+       Intent intent = new Intent(this, PersonalRecipe.class);
+       startActivity(intent); }
 
     public void Logout(View view){
         finish();

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Instrumentation;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,30 +16,22 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.firebase.client.Firebase;
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 
 public class Upload_Recipe extends AppCompatActivity {
 
@@ -94,13 +85,12 @@ public class Upload_Recipe extends AppCompatActivity {
             }
         });
 
-        /*btnUploadImg.setOnClickListener(new View.OnClickListener() {
+         btnUploadImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PersonalRecipe.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(), PersonalRecipe.class));
             }
-        });*/
+        });
 
 
     }
@@ -123,7 +113,7 @@ public class Upload_Recipe extends AppCompatActivity {
             progressDialog.show();
 
             String image = currentUserID;
-            userProfileImagesRef.putFile(ImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            userProfileImagesRef.child("RecipeImages").putFile(ImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
@@ -145,22 +135,22 @@ public class Upload_Recipe extends AppCompatActivity {
 
                             Map<String, PersonalRecipeInfo> recipes = new HashMap<>();
 
-                            recipes.put(myCurrentDateTime, new PersonalRecipeInfo(
+                            recipes.put("SingleItem", new PersonalRecipeInfo(
                                     recName.getText().toString(),
                                     recIngredients.getText().toString(),
                                     recTitle.getText().toString(),
                                     (String) newURL
                             ));
 
-                            RootRef.child("Recipes")
+                            RootRef.child("Recipes").child(myCurrentDateTime)
                                     //.setValue(newURL)
                                     .setValue(recipes)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                                startActivity(new Intent(getApplicationContext(), PersonalRecipe.class));
-                                                //Toast.makeText(Upload_Recipe.this, "Image Saved to the Database", Toast.LENGTH_SHORT).show();
+                                                //startActivity(new Intent(getApplicationContext(), PersonalRecipe.class));
+                                                Toast.makeText(Upload_Recipe.this, "Image Saved to the Database", Toast.LENGTH_SHORT).show();
                                             } else {
                                                 String message = task.getException().toString();
                                                 Toast.makeText(Upload_Recipe.this, "Error" + message, Toast.LENGTH_SHORT);

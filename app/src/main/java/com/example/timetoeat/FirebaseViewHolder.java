@@ -8,15 +8,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class FirebaseViewHolder extends RecyclerView.ViewHolder {
 
-    public ImageView recImg;
-    public TextView recName;
+    public ImageView imgUrl;
+    public TextView recipeName;
 
     public FirebaseViewHolder(@NonNull View itemView){
         super(itemView);
 
-        recImg = itemView.findViewById(R.id.card_image);
-        recName = itemView.findViewById(R.id.card_text);
+        imgUrl = itemView.findViewById(R.id.recipe_img);
+        recipeName = itemView.findViewById(R.id.recipe_name);
     }
+
+
 }

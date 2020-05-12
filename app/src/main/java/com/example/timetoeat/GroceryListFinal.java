@@ -3,9 +3,11 @@ package com.example.timetoeat;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -48,16 +50,18 @@ public class GroceryListFinal extends AppCompatActivity {
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
+            public void onItemClick(AdapterView<?> parent, View itemClicked,
                                     int position, long id) {
 
-                String el = (String) GroceryList.get(+position);
-                adapter.removeItem(el);
-                adapter.notifyDataSetChanged();
-                Toast.makeText(getApplicationContext(),
-                        "Removed : " + GroceryList.get(+position), Toast.LENGTH_SHORT).show();
-            }
+                    String el = (String) GroceryList.get(position);
+                    adapter.removeItem(el);
+                    adapter.notifyDataSetChanged();
+                    Toast.makeText(getApplicationContext(),
+                            "Removed : " + GroceryList.get(+position), Toast.LENGTH_SHORT).show();
+                }
+
         });
+
 
     }
     }

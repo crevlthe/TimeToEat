@@ -52,7 +52,7 @@
         android:layout_marginEnd="73dp"
         android:layout_marginBottom="17dp"
         android:gravity="center_horizontal"
-        android:text="Foodie"
+        android:text="Time To Eat"
         android:textColor="#FFFFFF"
         android:textSize="70dp"
         app:layout_constraintBottom_toTopOf="@+id/button"

@@ -1,8 +1,6 @@
 package com.example.timetoeat;
 
 import android.content.Context;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,16 +56,16 @@ public class CustomGrid extends BaseAdapter {
         List<String> list = new ArrayList<String>(Arrays.asList(GroceryList));
         for(int i=0; i<list.size();i++){
             if (el.equals(list.get(i))){
-                list.remove(list.get(i));
-                if(list.isEmpty()){
-                    Log.i("TEEEST", "List is Empty");
-                }
+                list.remove(el);
             }
+
         }
         GroceryList = list.toArray(new String[0]);
         notifyDataSetChanged();
 
-    }
 
+    }
 }
+
+
 

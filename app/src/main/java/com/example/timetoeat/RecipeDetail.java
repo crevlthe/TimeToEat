@@ -1,6 +1,7 @@
 package com.example.timetoeat;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +32,7 @@ public class RecipeDetail extends AppCompatActivity {
     private String RecipeURL;
     private String RecipeImageURL;
     private Button saveRecipe;
+    private TextView t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,10 @@ public class RecipeDetail extends AppCompatActivity {
         RecipeBody = (TextView) findViewById(R.id.text_recipe_body);
         RecipeImage = (ImageView) findViewById(R.id.image_recipe);
         saveRecipe = (Button) findViewById(R.id.button_saverecipe);
+
+        t = (TextView) findViewById(R.id.text_recipe_ingredients);
+        Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/Playball-Regular.ttf");
+        t.setTypeface(myCustomFont);
 
         getRecipe();
         //getBtn = (Button) findViewById(R.id.button_getrecipe);

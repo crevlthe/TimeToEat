@@ -6,30 +6,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.service.autofill.Dataset;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.ModelLoader;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class PersonalRecipe extends AppCompatActivity {
 
@@ -39,6 +36,8 @@ public class PersonalRecipe extends AppCompatActivity {
     private FirebaseRecyclerOptions<DataSetFire> options;
     private FirebaseRecyclerAdapter<DataSetFire, FirebaseViewHolder> adapter;
     private DatabaseReference DataReference;
+
+    private List<DataSetFire> items = new ArrayList<>();
 
     private FirebaseStorage storage;
     private StorageReference storageReference;
@@ -65,7 +64,54 @@ public class PersonalRecipe extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView2);
         //recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
         DataReference = FirebaseDatabase.getInstance().getReference().child("Recipes");
+
+
+
+        /*DataReference.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        ArrayList<String> PersonalRecipeInfo = new ArrayList<>();
+
+                        for(DataSnapshot itemSnapshot: dataSnapshot.getChildren()){
+
+                            DataSetFire item = itemSnapshot.getValue(DataSetFire.class);
+
+                            items.add(item);
+
+                        }
+                        Log.i("INFOOOOOO", PersonalRecipeInfo.toString());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+
+                });*/
+
+        DataReference.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        ArrayList<String> PersonalRecipeInfo = new ArrayList<>();
+
+                        for(DataSnapshot dsp: dataSnapshot.getChildren()){
+                            PersonalRecipeInfo.add(String.valueOf(dsp.getValue()));
+
+                        }
+                        Log.i("INFOOOOOO", PersonalRecipeInfo.toString());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        //handle databaseError
+                    }
+                });
+
 
         storage = FirebaseStorage.getInstance();
         storageReference=storage.getReference();
@@ -75,40 +121,41 @@ public class PersonalRecipe extends AppCompatActivity {
 
     }
 
-    private void getUrl(){
-        storageReference.child("RecipeImages.png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-        {
-            @Override
-            public void onSuccess(Uri downloadUrl)
-            {
-                String url = downloadUrl.toString();
-                Log.i("FUCKING URL",url);
+    /*private void collectReferences(Map<String, PersonalRecipeInfo> recipes) {
+        ArrayList<String> PersonalRecipeInfo = new ArrayList<>();
 
-            }
-        });
-    }
+        //iterate through each user, ignoring their UID
+        for (Map.Entry<String, PersonalRecipeInfo> entry : recipes.entrySet()){
+
+            //Get user map
+            Map singleRecipe = (Map) entry.getValue();
+            //Get phone field and append to list
+            PersonalRecipeInfo.add((String) singleRecipe.get("imgUrl"));
+            PersonalRecipeInfo.add((String) singleRecipe.get("recipeName"));
+        }
+
+        Log.i("INFOOOOOO", PersonalRecipeInfo.toString());
+    }*/
+
 
     private void LoadData(){
 
+
+
         options = new FirebaseRecyclerOptions.Builder<DataSetFire>().setQuery(DataReference, DataSetFire.class).build();
         adapter = new FirebaseRecyclerAdapter<DataSetFire, FirebaseViewHolder>(options) {
+
+            private ArrayList<DataSetFire> data = new ArrayList<>();
+
+
             @Override
             protected void onBindViewHolder(@NonNull FirebaseViewHolder holder, int i, @NonNull final DataSetFire dataSetFire) {
+                data.add(dataSetFire);
 
-                holder.recName.setText(dataSetFire.getRecName());
-                //Glide.with(PersonalRecipe.this).load().into(holder.recImg);
+                holder.recipeName.setText(data.get(i).getRecipeName());
+                Glide.with(PersonalRecipe.this).load(data.get(i).getImgUrl()).into(holder.imgUrl);
                 //Picasso.get().load(dataSetFire.getImgUrl()).into(firebaseViewHolder.recImg);
 
-
-               /* firebaseViewHolder.itemView.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view){
-                        Intent intent = new Intent(PersonalRecipe.this, Main2Activity.class);
-                        intent.putExtra("recname", dataSetFire.getRecName());
-                        intent.putExtra("imageUrl", dataSetFire.getImgUrl());
-                        startActivity(intent);
-                    }
-                });*/
             }
 
             @NonNull
@@ -123,8 +170,8 @@ public class PersonalRecipe extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+
+
+
+
 }
-
-
-
-
