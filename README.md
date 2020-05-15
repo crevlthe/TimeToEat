@@ -20,7 +20,7 @@
 git clone git@github.com:crevlthe/TimeToEat.git 
 ```
 
-  Open Android Studio --> Check out the project from Version Control --> Git --> Use the obtained SSH to clone the repository to your device and open it in your Android Studio 
+  Open Android Studio &rarr; Check out the project from Version Control &rarr; Git &rarr; Use the obtained SSH to clone the repository to your device and open it in your Android Studio 
 
 
 
@@ -39,7 +39,7 @@ git clone https://github.com/crevlthe/TimeToEat.git
   After you cloned the repository and opened the project on Android Studio, you may use the emulator to run it.
   Go to: 
 
-  Tools --> AVD Manager --> + Create Virtual Device 
+  Tools &rarr; AVD Manager &rarr; + Create Virtual Device 
 
   and add the new emulator. We were testing the app mostly on Pixel 3a XL API R. After, use the build/run option in Android Studio. 
 
