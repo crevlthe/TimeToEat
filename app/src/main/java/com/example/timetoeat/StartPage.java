@@ -1,14 +1,18 @@
 package com.example.timetoeat;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class StartPage extends AppCompatActivity {
 
@@ -22,6 +26,7 @@ public class StartPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_page);
 
+        createNotificationChannel(); //Used to register the app's notification channel with the system
 
         t = (TextView) findViewById(R.id.appName);
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/FugazOne-Regular.ttf");
@@ -46,9 +51,21 @@ public class StartPage extends AppCompatActivity {
             }
         });
 
-
-
-
     }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.d("createNotificationChannel","Channel created");
+            CharSequence name = "Time to Eat Channel";
+            String description = "Channel for Time to Eat";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notifyEat", name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
+}
 
