@@ -52,9 +52,7 @@ git clone https://github.com/crevlthe/TimeToEat.git
 
 #### Libraries 
 
-* [Jsoup](https://jsoup.org/) - Java library for working with real-world HTML, used for retrieving recipes from 
-
-* [allrecipes](https://www.allrecipes.com/)
+* [Jsoup](https://jsoup.org/) - Java library for working with real-world HTML, used for retrieving recipes from [allrecipes](https://www.allrecipes.com/)
 
 * [Material Design](https://material.io/design) - used for creating UI components
 
