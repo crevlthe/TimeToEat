@@ -53,7 +53,8 @@
                 android:value="com.example.timetoeat.RecipeSearch" />
         </activity>
 
-        <receiver android:name=".ReminderBroadcast"/>
+        <receiver android:name=".ReminderBreakfast"/>
+        <receiver android:name=".ReminderLunch"/>
     </application>
 
 </manifest>

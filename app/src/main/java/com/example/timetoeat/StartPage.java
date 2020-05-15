@@ -1,11 +1,7 @@
 package com.example.timetoeat;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -16,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import static android.os.Build.VERSION.SDK_INT;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class StartPage extends AppCompatActivity {
 
@@ -55,7 +51,6 @@ public class StartPage extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void createNotificationChannel() {
@@ -72,7 +67,5 @@ public class StartPage extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
-
-
 }
 

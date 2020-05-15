@@ -1,26 +1,15 @@
 package com.example.timetoeat;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-
-import android.Manifest;
 import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 
@@ -32,11 +21,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         scheduleMorning();
+        scheduleLunch();
     }
 
     private void scheduleMorning() {
-        final int Hour = 3;
-        final int Minute = 12;
+        final int Hour = 9;
+        final int Minute = 0;
         long remainingMillis;
 
         long currentTimeMillis = System.currentTimeMillis();
@@ -47,14 +37,35 @@ public class MainActivity extends AppCompatActivity {
 
         if(remainingMillis>0){
             Log.d("remainingMillis",Long.toString(remainingMillis));
-            Intent intent = new Intent(getApplicationContext(),ReminderBroadcast.class);
+            Intent intent = new Intent(getApplicationContext(), ReminderBreakfast.class);
             intent.setAction("morning_notification");
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100,intent, PendingIntent.FLAG_ONE_SHOT);
 
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP,SystemClock.elapsedRealtime() + remainingMillis,pendingIntent);
         }
+    }
 
+    private void scheduleLunch() {
+        final int Hour = 12;
+        final int Minute = 0;
+        long remainingMillis;
+
+        long currentTimeMillis = System.currentTimeMillis();
+
+        Calendar MorningCalendar = Calendar.getInstance();
+        MorningCalendar.set(MorningCalendar.get(Calendar.YEAR),MorningCalendar.get(Calendar.MONTH),MorningCalendar.get(Calendar.DAY_OF_MONTH),Hour,Minute);
+        remainingMillis = MorningCalendar.getTimeInMillis() - currentTimeMillis;
+
+        if(remainingMillis>0){
+            Log.d("remainingMillis",Long.toString(remainingMillis));
+            Intent intent = new Intent(getApplicationContext(), ReminderLunch.class);
+            intent.setAction("lunch_notification");
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),200,intent, PendingIntent.FLAG_ONE_SHOT);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP,SystemClock.elapsedRealtime() + remainingMillis,pendingIntent);
+        }
     }
 
     public void RecommendRecipe(View view) {
