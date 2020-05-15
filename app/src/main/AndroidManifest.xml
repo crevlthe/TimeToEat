@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Upload_Recipe"></activity>
+        <activity android:name=".ListGridRetrieve"></activity>
+        <activity android:name=".Upload_Recipe" />
         <activity android:name=".PersonalRecipe" />
         <activity android:name=".Preferences" />
         <activity android:name=".RecipeRecommend" />

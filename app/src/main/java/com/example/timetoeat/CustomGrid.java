@@ -28,7 +28,7 @@ public class CustomGrid extends BaseAdapter {
     public int getCount(){ return GroceryList.length;}
 
     @Override
-    public Object getItem(int position){return null;}
+    public Object getItem(int position){return GroceryList[position];}
 
     @Override
     public long getItemId(int position){ return 0;}

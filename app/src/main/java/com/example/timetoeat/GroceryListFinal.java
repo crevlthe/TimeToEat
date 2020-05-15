@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -45,7 +46,7 @@ public class GroceryListFinal extends AppCompatActivity {
 
         final CustomGrid adapter = new CustomGrid(GroceryListFinal.this, GroceryList, imageId);
 
-        GridView grid = (GridView)findViewById(R.id.grid);
+        final GridView grid = (GridView)findViewById(R.id.grid);
         grid.setAdapter(adapter);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -53,11 +54,19 @@ public class GroceryListFinal extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View itemClicked,
                                     int position, long id) {
 
-                    String el = (String) GroceryList.get(position);
-                    adapter.removeItem(el);
-                    adapter.notifyDataSetChanged();
-                    Toast.makeText(getApplicationContext(),
-                            "Removed : " + GroceryList.get(+position), Toast.LENGTH_SHORT).show();
+                String el = (String) GroceryList.get(position);
+                final int size = grid.getChildCount();
+                //Log.i("CHILDREN COUNT", String.valueOf(size));
+                for(int i = 0; i < size; i++) {
+                    ViewGroup gridChild = (ViewGroup) grid.getChildAt(i);
+                    if (gridChild == itemClicked){
+                        gridChild.setVisibility(View.GONE);}
+
+                }
+                    //adapter.removeItem(el);
+                    //adapter.notifyDataSetChanged();
+                    //Toast.makeText(getApplicationContext(),
+                            //"Removed : " + GroceryList.get(+position), Toast.LENGTH_SHORT).show();
                 }
 
         });

@@ -1,24 +1,35 @@
 package com.example.timetoeat;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.AbsListView;
-import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 public class ToBuyList extends AppCompatActivity {
 
@@ -32,6 +43,8 @@ public class ToBuyList extends AppCompatActivity {
     public static boolean isActionMode = false;
     public static List<String> UserSelection = new ArrayList<>();
     public static ActionMode actionMode = null;
+
+    private DatabaseReference dbReference;
 
 
     @Override
@@ -92,49 +105,38 @@ public class ToBuyList extends AppCompatActivity {
                     Intent intent = new Intent(ToBuyList.this, GroceryListFinal.class);
                     Bundle extras = new Bundle();
                     intent.putStringArrayListExtra("GROCERIES", (ArrayList<String>) UserSelection);
-
-                    //extras.putString("GROCERIES", String.valueOf(UserSelection));
-                    //intent.putExtras(extras);
                     startActivity(intent);
-                    Log.i("TEEEEST", "ingredients - " + UserSelection);
-                    //Log.i("TEEEEST2", "ingredients - " + Arrays.asList(userselection));
+                    //Log.i("TEEEEST", "ingredients - " + UserSelection);
+
+                    //Send the list to the database
+                    dbReference = FirebaseDatabase.getInstance().getReference().child("IngredientsList");
+
+                    final String myCurrentDateTime = DateFormat.getDateTimeInstance()
+                            .format(Calendar.getInstance().getTime());
+
+                    //Map<String, IngredientLst> myIngredients = new HashMap<>();
+                    Map<String, Object> myIngredients = new HashMap<>();
+                    myIngredients.put(myCurrentDateTime, UserSelection);
+
+                    dbReference.setValue(myIngredients)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        //startActivity(new Intent(getApplicationContext(), PersonalRecipe.class));
+                                        //Toast.makeText(ToBuyList.this, "Image Saved to the Database", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        String message = task.getException().toString();
+                                        Toast.makeText(ToBuyList.this, "Error" + message, Toast.LENGTH_SHORT);
+                                    }
+                                }
+                            });
 
 
-                    //Bundle extras = new Bundle();
-                    //extras.putStringArray("GROCERIES", UserSelection);
-                    //Intent intent = new Intent(ToBuyList.this, GroceryListFinal.class);
-                    //intent.putExtras(extras);
-
-
-                    /*case R.id.select_all:
-                        CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox);
-                        //int itemCount = listView.getCount();
-                        for(int i=0; i < listView.getChildCount(); i++){
-                            listView.setItemChecked(i, checkBox.isChecked());
-                        }
-                        /*int checkedItemCount = getCheckedItemCount();
-                        if(listView.getCount() == checkedItemCount){
-                            checkBox.setChecked(true);
-                        } else{
-                            checkBox.setChecked(false);
-                        }*/
                 default:
                     return false;
             }
         }
-
-        /*private int getCheckedItemCount(){
-            int cnt = 0;
-            SparseBooleanArray positions = listView.getCheckedItemPositions();
-            int itemCount = listView.getCount();
-
-            for (int i=0; i<itemCount; i++){
-                if(positions.get(i)){
-                    cnt++;
-                }
-            }
-            return cnt;
-        }*/
 
         @Override
         public void onDestroyActionMode(ActionMode mode) {
@@ -146,66 +148,6 @@ public class ToBuyList extends AppCompatActivity {
 
 
 }
-
-
-
-
-        /*final List<UserModel> users = new ArrayList<>();
-        users.add(new UserModel(false, "Dharm"));
-        users.add(new UserModel(false, "Sign"));
-        users.add(new UserModel(false, "Mark"));
-
-        final CustomAdapter adapter = new CustomAdapter(this, users);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-
-                UserModel model = users.get(i);
-
-                if (model.isSelected())
-                    model.setSelected(false);
-                else
-                    model.setSelected(true);
-
-                users.set(i,model);
-
-                adapter.upDateRecords(users);
-
-            }
-
-        });*/
-
-
-       /*final String TAG = ToBuyList.class.getSimpleName();
-
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        String ingredients = extras.getString("INGREDIENTS");
-
-        String[] arr = ingredients.split("\u25AA");
-
-        Log.i(TAG, "Inside array" + arr);
-
-        for(String a : arr){
-            Ingredients.add(a);
-        }
-
-        Log.i(TAG, "Inside Loop" + Ingredients);
-
-        //Ingredients.addAll(Arrays.asList(arr));
-
-        listView = findViewById(R.id.myListView);
-        adapter = new ListViewAdapter(Ingredients, this);
-        listView.setAdapter(adapter);*/
-
-
-
-
-
-
-
 
 
 

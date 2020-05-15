@@ -61,6 +61,7 @@ public class Preferences extends AppCompatActivity {
         };
         FirebaseAuth.getInstance().addAuthStateListener(authListener);
 
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ViewBuyList(View view){
-        Intent intent = new Intent(this, ToBuyList.class);
+        Intent intent = new Intent(this, ListGridRetrieve.class);
         startActivity(intent);
     }
 
