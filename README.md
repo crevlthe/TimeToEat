@@ -8,9 +8,7 @@
 
 ### Screenshots
 
-![welcome](https://github.com/crevlthe/TimeToEat/blob/master/welcome.png)
-![navigation](https://github.com/crevlthe/TimeToEat/blob/master/navigation.png)
-![search](https://github.com/crevlthe/TimeToEat/blob/master/search.png)
+![welcome](https://github.com/crevlthe/TimeToEat/blob/master/welcome.png)![navigation](https://github.com/crevlthe/TimeToEat/blob/master/navigation.png)![search](https://github.com/crevlthe/TimeToEat/blob/master/search.png)
 
 
 
