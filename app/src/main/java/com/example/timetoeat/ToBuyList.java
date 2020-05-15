@@ -12,13 +12,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.AbsListView;
+import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -107,6 +107,16 @@ public class ToBuyList extends AppCompatActivity {
                     intent.putStringArrayListExtra("GROCERIES", (ArrayList<String>) UserSelection);
                     startActivity(intent);
                     //Log.i("TEEEEST", "ingredients - " + UserSelection);
+                case R.id.action_select_all:
+                    for(int i=0; i < listView.getChildCount(); i++){
+                        RelativeLayout itemLayout = (RelativeLayout)listView.getChildAt(i);
+                        CheckBox cb = (CheckBox)itemLayout.findViewById(R.id.checkBox);
+                        cb.setChecked(true);
+
+                    }
+
+
+
 
                     //Send the list to the database
                     dbReference = FirebaseDatabase.getInstance().getReference().child("IngredientsList");

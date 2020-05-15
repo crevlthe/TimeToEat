@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -41,7 +42,7 @@ public class ListViewAdapter extends ArrayAdapter<String> {
         final TextView IngredientName = row.findViewById(R.id.ingredient_name);
         IngredientName.setText(Ingredients.get(position));
 
-        CheckBox checkBox = row.findViewById(R.id.checkBox);
+        final CheckBox checkBox = row.findViewById(R.id.checkBox);
         checkBox.setTag(position);
         if(ToBuyList.isActionMode){
             checkBox.setVisibility((View.VISIBLE));
@@ -55,6 +56,12 @@ public class ListViewAdapter extends ArrayAdapter<String> {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 int position = (int) buttonView.getTag();
+
+                if(Ingredients.contains((position))){
+                    checkBox.setChecked(false);
+                }else {
+                    checkBox.setChecked(true);
+                }
 
                 if(ToBuyList.UserSelection.contains(Ingredients.get(position))){
                     ToBuyList.UserSelection.remove(Ingredients.get(position));
@@ -75,5 +82,16 @@ public class ListViewAdapter extends ArrayAdapter<String> {
         }
         notifyDataSetChanged();
     }
+
+    /*private boolean allItensAlreadyChecked() {
+        boolean allChecked = adapter.getCount() > 0;
+        for (int i = 0; i < adapter.getCount(); i++) {
+            allChecked = allChecked && adapter.getItem(i).isChecked();
+        }
+
+        return allChecked;
+    }*/
+
+
 
 }

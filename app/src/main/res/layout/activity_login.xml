@@ -98,7 +98,7 @@
         android:layout_marginBottom="70dp"
         android:gravity="center"
         android:text="Sign up here"
-        android:textSize="16dp"
+        android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
