@@ -1,9 +1,16 @@
 package com.example.timetoeat;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Preferences extends AppCompatActivity {
     public FirebaseAuth.AuthStateListener authListener;
@@ -34,6 +42,16 @@ public class Preferences extends AppCompatActivity {
     private Button saveBtn;
     private DatabaseReference mDatabase;
 
+    private EditText chooseMorningTime;
+    private TimePickerDialog timeMorningPickerDialog;
+    private EditText chooseLunchTime;
+    private TimePickerDialog timeLunchPickerDialog;
+
+    public int morningCurrentHour;
+    public int morningCurrentMinute;
+    public int lunchCurrentHour;
+    public int lunchCurrentMinute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +61,8 @@ public class Preferences extends AppCompatActivity {
         chipGroup2 = findViewById(R.id.chipgroup2);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         saveBtn = (Button) findViewById(R.id.button_saveprefs);
+        chooseMorningTime = (EditText) findViewById(R.id.input_morningalarm);
+        chooseLunchTime = (EditText) findViewById(R.id.input_lunchalarm);
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -70,10 +90,72 @@ public class Preferences extends AppCompatActivity {
                 mAllergies.clear();
                 mAllergiesExcl.clear();
                 savePreferences();
+
+                if(chooseMorningTime.getText().toString().trim().length() > 0){
+                    Log.d("chosenTime", chooseMorningTime.getText().toString());
+
+                    morningCurrentHour = Integer.parseInt(chooseMorningTime.getText().toString().substring(0,2));
+                    morningCurrentMinute = Integer.parseInt(chooseMorningTime.getText().toString().substring(3,5));
+
+                    scheduleMorning(morningCurrentHour, morningCurrentMinute);
+                }
+
+                if(chooseLunchTime.getText().toString().trim().length() > 0){
+                    Log.d("chosenTime", chooseLunchTime.getText().toString());
+
+                    lunchCurrentHour = Integer.parseInt(chooseLunchTime.getText().toString().substring(0,2));
+                    lunchCurrentMinute = Integer.parseInt(chooseLunchTime.getText().toString().substring(3,5));
+
+                    scheduleLunch(lunchCurrentHour, lunchCurrentMinute);
+                }
+
                 Toast.makeText(Preferences.this, "Preferences saved!", Toast.LENGTH_LONG).show();
                 finish();
             }
         });
+
+        chooseMorningTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //calendar = Calendar.getInstance();
+                //morningCurrentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                //morningCurrentMinute = calendar.get(Calendar.MINUTE);
+                morningCurrentHour = 8;
+                morningCurrentMinute = 0;
+
+
+                timeMorningPickerDialog = new TimePickerDialog(Preferences.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        chooseMorningTime.setText(String.format("%02d:%02d", hourOfDay, minutes));
+                    }
+                }, morningCurrentHour, morningCurrentMinute, true);
+
+                timeMorningPickerDialog.show();
+            }
+        });
+
+        chooseLunchTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //calendar = Calendar.getInstance();
+                morningCurrentHour = 12;
+                morningCurrentMinute = 0;
+
+
+                timeLunchPickerDialog = new TimePickerDialog(Preferences.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        chooseLunchTime.setText(String.format("%02d:%02d", hourOfDay, minutes));
+                    }
+                }, lunchCurrentHour, lunchCurrentMinute, true);
+
+                timeLunchPickerDialog.show();
+            }
+        });
+
     }
 
     private void getPreferences() {
@@ -210,4 +292,49 @@ public class Preferences extends AppCompatActivity {
             }
         }.start();
     }
+
+    private void scheduleMorning(int Hour, int Minute) {
+        Log.d("scheduleMorning","Morning notification scheduled");
+        //final int Hour = currentHour;
+        //final int Minute = currentMinute;
+        long remainingMillis;
+
+        long currentTimeMillis = System.currentTimeMillis();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH),Hour,Minute);
+        remainingMillis = calendar.getTimeInMillis() - currentTimeMillis;
+
+        if(remainingMillis>0){
+            Log.d("remainingMillis",Long.toString(remainingMillis));
+            Intent intent = new Intent(getApplicationContext(), ReminderBreakfast.class);
+            intent.setAction("morning_notification");
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100,intent, PendingIntent.FLAG_ONE_SHOT);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + remainingMillis,AlarmManager.INTERVAL_DAY,pendingIntent);
+        }
+    }
+
+    private void scheduleLunch(int Hour, int Minute) {
+        Log.d("scheduleLunch","Lunch notification scheduled");
+        long remainingMillis;
+
+        long currentTimeMillis = System.currentTimeMillis();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH),Hour,Minute);
+        remainingMillis = calendar.getTimeInMillis() - currentTimeMillis;
+
+        if(remainingMillis>0){
+            Log.d("remainingMillis",Long.toString(remainingMillis));
+            Intent intent = new Intent(getApplicationContext(), ReminderLunch.class);
+            intent.setAction("lunch_notification");
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),200,intent, PendingIntent.FLAG_ONE_SHOT);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,SystemClock.elapsedRealtime() + remainingMillis,AlarmManager.INTERVAL_DAY,pendingIntent);
+        }
+    }
+
 }

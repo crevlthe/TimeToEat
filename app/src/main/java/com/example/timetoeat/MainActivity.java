@@ -20,52 +20,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        scheduleMorning();
-        scheduleLunch();
-    }
-
-    private void scheduleMorning() {
-        final int Hour = 9;
-        final int Minute = 0;
-        long remainingMillis;
-
-        long currentTimeMillis = System.currentTimeMillis();
-
-        Calendar MorningCalendar = Calendar.getInstance();
-        MorningCalendar.set(MorningCalendar.get(Calendar.YEAR),MorningCalendar.get(Calendar.MONTH),MorningCalendar.get(Calendar.DAY_OF_MONTH),Hour,Minute);
-        remainingMillis = MorningCalendar.getTimeInMillis() - currentTimeMillis;
-
-        if(remainingMillis>0){
-            Log.d("remainingMillis",Long.toString(remainingMillis));
-            Intent intent = new Intent(getApplicationContext(), ReminderBreakfast.class);
-            intent.setAction("morning_notification");
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),100,intent, PendingIntent.FLAG_ONE_SHOT);
-
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP,SystemClock.elapsedRealtime() + remainingMillis,pendingIntent);
-        }
-    }
-
-    private void scheduleLunch() {
-        final int Hour = 12;
-        final int Minute = 0;
-        long remainingMillis;
-
-        long currentTimeMillis = System.currentTimeMillis();
-
-        Calendar MorningCalendar = Calendar.getInstance();
-        MorningCalendar.set(MorningCalendar.get(Calendar.YEAR),MorningCalendar.get(Calendar.MONTH),MorningCalendar.get(Calendar.DAY_OF_MONTH),Hour,Minute);
-        remainingMillis = MorningCalendar.getTimeInMillis() - currentTimeMillis;
-
-        if(remainingMillis>0){
-            Log.d("remainingMillis",Long.toString(remainingMillis));
-            Intent intent = new Intent(getApplicationContext(), ReminderLunch.class);
-            intent.setAction("lunch_notification");
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),200,intent, PendingIntent.FLAG_ONE_SHOT);
-
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP,SystemClock.elapsedRealtime() + remainingMillis,pendingIntent);
-        }
     }
 
     public void RecommendRecipe(View view) {
