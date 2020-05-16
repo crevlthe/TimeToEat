@@ -199,17 +199,7 @@ public class Upload_Recipe extends AppCompatActivity {
                             recipes.put("imgUrl", (String) newURL);
 
 
-                            /*Map<String, PersonalRecipeInfo> recipes = new HashMap<>();
-
-
-                            recipes.put("SingleItem", new PersonalRecipeInfo(
-                                    recName.getText().toString(),
-                                    recIngredients.getText().toString(),
-                                    recTitle.getText().toString(),
-                                    (String) newURL
-                            ));*/
-
-                            RootRef.child("Recipes").child(CurrentUser)
+                            RootRef.child("Recipes").child(myCurrentDateTime + CurrentUser)
                                     //.setValue(newURL)
                                     .setValue(recipes)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {

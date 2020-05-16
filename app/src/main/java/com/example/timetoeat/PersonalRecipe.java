@@ -31,6 +31,7 @@ import java.util.List;
 public class PersonalRecipe extends AppCompatActivity {
 
     Button btnUploadRecipe;
+    Button backToMain;
     private RecyclerView recyclerView;
     private DatabaseReference databaseReference;
     private FirebaseRecyclerOptions<DataSetFire> options;
@@ -48,6 +49,15 @@ public class PersonalRecipe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_recipe);
+
+        backToMain = findViewById(R.id.go_to_main);
+        backToMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         btnUploadRecipe = findViewById(R.id.button_uploadRecipe);
@@ -67,29 +77,6 @@ public class PersonalRecipe extends AppCompatActivity {
 
 
         DataReference = FirebaseDatabase.getInstance().getReference().child("Recipes");
-
-
-        /*DataReference.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        ArrayList<String> PersonalRecipeInfo = new ArrayList<>();
-
-                        for(DataSnapshot itemSnapshot: dataSnapshot.getChildren()){
-
-                            DataSetFire item = itemSnapshot.getValue(DataSetFire.class);
-
-                            items.add(item);
-
-                        }
-                        Log.i("INFOOOOOO", PersonalRecipeInfo.toString());
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {}
-
-                });*/
 
         DataReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
