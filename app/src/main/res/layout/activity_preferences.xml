@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Let's get to know you better."
         android:textColor="@color/colorGrayDark3"
         android:textSize="24sp"
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="What sort of cuisine do you like eating?"
         android:textColor="@color/colorGrayDark1"
         android:textSize="20sp"
@@ -183,6 +185,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Do you have allergies to any of the following?"
         android:textColor="@color/colorGrayDark1"
         android:textSize="20sp"
@@ -264,15 +267,99 @@
 
     </com.google.android.material.chip.ChipGroup>
 
+    <TextView
+        android:id="@+id/title_notifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Notifications"
+        android:textColor="@color/colorGrayDark1"
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chipgroup2" />
+
+    <TextView
+        android:id="@+id/title_notificationdesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:text="Set recurring alerts for when when you want the app to notify you to eat (existing alarms are unaffected if there is no input)"
+        android:textColor="@color/colorGrayDark3"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_notifications" />
+
+    <TextView
+        android:id="@+id/title_morningalarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Morning Alarm"
+        android:textColor="@color/colorGrayDark1"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_notificationdesc" />
+
+    <EditText
+        android:id="@+id/input_morningalarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="Choose the time..."
+        android:inputType="time"
+        android:textColor="@color/colorGrayDark1"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_morningalarm" />
+
+    <TextView
+        android:id="@+id/title_lunchalarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:text="Lunch Alarm"
+        android:textColor="@color/colorGrayDark1"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/input_morningalarm" />
+
+    <EditText
+        android:id="@+id/input_lunchalarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="Choose the time..."
+        android:inputType="time"
+        android:textColor="@color/colorGrayDark1"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_lunchalarm" />
+
     <Button
         android:id="@+id/button_saveprefs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:text="Save Preferences"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chipgroup1" />
-
+        app:layout_constraintTop_toBottomOf="@+id/input_lunchalarm" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
