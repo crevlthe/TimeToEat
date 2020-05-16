@@ -63,7 +63,7 @@ public class ToBuyList extends AppCompatActivity {
         Ingredients = new ArrayList(Arrays.asList(ingredients_split));
         Ingredients.remove(0);
 
-        Log.i("TEEEEST", "ingredients - " + Ingredients);
+        //Log.i("TEEEEST", "ingredients - " + Ingredients);
 
         listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(modeListener);
@@ -106,16 +106,6 @@ public class ToBuyList extends AppCompatActivity {
                     Bundle extras = new Bundle();
                     intent.putStringArrayListExtra("GROCERIES", (ArrayList<String>) UserSelection);
                     startActivity(intent);
-                    //Log.i("TEEEEST", "ingredients - " + UserSelection);
-                case R.id.action_select_all:
-                    for(int i=0; i < listView.getChildCount(); i++){
-                        RelativeLayout itemLayout = (RelativeLayout)listView.getChildAt(i);
-                        CheckBox cb = (CheckBox)itemLayout.findViewById(R.id.checkBox);
-                        cb.setChecked(true);
-
-                    }
-
-
 
 
                     //Send the list to the database

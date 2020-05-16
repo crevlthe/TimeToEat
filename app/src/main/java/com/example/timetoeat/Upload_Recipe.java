@@ -5,6 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +24,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -33,6 +37,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
+
 public class Upload_Recipe extends AppCompatActivity {
 
 
@@ -40,6 +46,7 @@ public class Upload_Recipe extends AppCompatActivity {
     private Button btnUploadImg;
     private ImageView uploadedImg;
     private EditText recName, recIngredients, recDescription;
+    private ClipboardManager clipboard;
 
     private String currentUserID;
     private FirebaseAuth mAuth;
@@ -47,6 +54,10 @@ public class Upload_Recipe extends AppCompatActivity {
     private StorageReference userProfileImagesRef;
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    public FirebaseAuth.AuthStateListener authListener;
+    public FirebaseUser user;
+    public String CurrentUser;
+
 
     private static final int GalleryPic = 1;
 
@@ -72,6 +83,30 @@ public class Upload_Recipe extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         storageReference=storage.getReference();
 
+        //clipboard manager for copy and paste
+
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("label", "Text to copy");
+        clipboard.setPrimaryClip(clip);
+
+
+        String pasteData = "";
+
+        // If it does contain data, decide if you can handle the data.
+        if (!(clipboard.hasPrimaryClip())) {
+
+        } else if (!(clipboard.getPrimaryClipDescription().hasMimeType(MIMETYPE_TEXT_PLAIN))) {
+
+            // since the clipboard has data but it is not plain text
+
+        } else {
+
+            //since the clipboard contains plain text.
+            ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
+
+            // Gets the clipboard as text.
+            pasteData = item.getText().toString();
+        }
 
 
         btnSelectImg.setOnClickListener(new View.OnClickListener() {
@@ -85,12 +120,35 @@ public class Upload_Recipe extends AppCompatActivity {
             }
         });
 
-         btnUploadImg.setOnClickListener(new View.OnClickListener() {
+         /*btnUploadImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), PersonalRecipe.class));
             }
-        });
+        });*/
+
+
+        authListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    //User is signed in
+                    CurrentUser = firebaseAuth.getUid();
+                    btnUploadImg.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(getApplicationContext(), PersonalRecipe.class));
+                        }
+                    });
+
+
+                } else {
+                    //User is signed out
+                }
+            }
+        };
+        FirebaseAuth.getInstance().addAuthStateListener(authListener);
 
 
     }
@@ -99,6 +157,7 @@ public class Upload_Recipe extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
+
 
         if (requestCode == GalleryPic && resultCode == RESULT_OK
                 && data != null) {
@@ -150,7 +209,7 @@ public class Upload_Recipe extends AppCompatActivity {
                                     (String) newURL
                             ));*/
 
-                            RootRef.child("Recipes").child(myCurrentDateTime)
+                            RootRef.child("Recipes").child(CurrentUser)
                                     //.setValue(newURL)
                                     .setValue(recipes)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {

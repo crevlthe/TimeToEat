@@ -68,12 +68,20 @@
             android:layout_marginTop="20dp"
             android:text="Password" />
 
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="312dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleDrawable="@drawable/icon_selector">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="312dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

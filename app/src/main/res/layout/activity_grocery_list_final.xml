@@ -1,32 +1,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".GroceryListFinal" >
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="5"
+    android:orientation="vertical"
+    tools:context=".GroceryListFinal"
+     >
 
 
     <GridView
-        android:numColumns="auto_fit"
-        android:gravity="center"
-        android:columnWidth="150dp"
-        android:stretchMode="columnWidth"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
         android:id="@+id/grid"
+        android:layout_width="427dp"
+        android:layout_height="600dp"
         android:layout_gravity="bottom"
+        android:layout_weight="4"
         android:clickable="false"
-        android:focusable="false"
+        android:columnWidth="150dp"
         android:descendantFocusability="blocksDescendants"
-        />
+        android:focusable="false"
+        android:gravity="center"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth" />
 
     <Button
         android:id="@+id/back_to_nav"
         android:layout_width="165dp"
-        android:layout_height="55dp"
-        android:text="Back to Main"
+        android:layout_height="48dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
         android:background="@drawable/custom_button2"
-        android:textColor="#000000"
-        android:layout_marginLeft="40dp"
-        android:layout_gravity="center_horizontal"/>
+        android:text="Back to Main"
+        android:textColor="#000000" />
 
 </LinearLayout>

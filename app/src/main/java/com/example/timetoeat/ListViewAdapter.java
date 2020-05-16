@@ -2,8 +2,6 @@ package com.example.timetoeat;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-
-import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +18,7 @@ public class ListViewAdapter extends ArrayAdapter<String> {
 
     private List<String> Ingredients = new ArrayList<>();
     private Context context;
+
 
 
     public ListViewAdapter(List<String> Ingredients, Context context){
@@ -44,6 +40,8 @@ public class ListViewAdapter extends ArrayAdapter<String> {
 
         final CheckBox checkBox = row.findViewById(R.id.checkBox);
         checkBox.setTag(position);
+
+
         if(ToBuyList.isActionMode){
             checkBox.setVisibility((View.VISIBLE));
         }
@@ -57,11 +55,6 @@ public class ListViewAdapter extends ArrayAdapter<String> {
 
                 int position = (int) buttonView.getTag();
 
-                if(Ingredients.contains((position))){
-                    checkBox.setChecked(false);
-                }else {
-                    checkBox.setChecked(true);
-                }
 
                 if(ToBuyList.UserSelection.contains(Ingredients.get(position))){
                     ToBuyList.UserSelection.remove(Ingredients.get(position));

@@ -36,8 +36,8 @@ public class Login extends AppCompatActivity {
         registerLink.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent registerHere = new Intent(Login.this,Register.class );
-                Login.this.startActivity(registerHere);
+                Intent registerHere = new Intent(getApplicationContext(),Register.class);
+                startActivityForResult(registerHere,0);
             }
         });
 

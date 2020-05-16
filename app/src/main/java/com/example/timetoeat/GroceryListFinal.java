@@ -54,9 +54,6 @@ public class GroceryListFinal extends AppCompatActivity {
 
         GroceryList = getIntent().getStringArrayListExtra("GROCERIES");
 
-
-        //Log.i("TEEEEST", "groceries - " + GroceryList);
-
         final CustomGrid adapter = new CustomGrid(GroceryListFinal.this, GroceryList, imageId);
 
         final GridView grid = (GridView)findViewById(R.id.grid);
@@ -76,10 +73,6 @@ public class GroceryListFinal extends AppCompatActivity {
                         gridChild.setVisibility(View.GONE);}
 
                 }
-                    //adapter.removeItem(el);
-                    //adapter.notifyDataSetChanged();
-                    //Toast.makeText(getApplicationContext(),
-                            //"Removed : " + GroceryList.get(+position), Toast.LENGTH_SHORT).show();
                 }
 
         });
