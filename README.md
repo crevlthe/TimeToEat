@@ -45,8 +45,14 @@ git clone https://github.com/crevlthe/TimeToEat.git
 
 * Run on your device 
 
-  Alternatively, run the app on your physical device...(finish this part). 
+  Alternatively, run the app on your physical device. To do this, plug your phone into your computer, and enable USB Debugging under Developer Options in Settings.
 
+  If Developer Options is not shown in Settings, go to About Phone instead and tap Build Number 7 times to enable the Developer Options menu.
+
+  The Google USB Driver is required for Windows for Google devices and this can be obtained at https://developer.android.com/studio/run/win-usb.
+  For other manufacturers, you may need to find device-specific USB drivers.
+
+  For the purposes of testing this app, a Nexus 6P was used.
 
 ### Libraries Used 
 
