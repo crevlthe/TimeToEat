@@ -6,81 +6,84 @@
     android:layout_height="match_parent"
     tools:context=".StartPage">
 
-
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="490dp"
-        android:layout_height="450dp"
-        android:layout_marginBottom="200dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.818"
-        app:srcCompat="@drawable/food" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="442dp"
-        android:layout_height="506dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="bottom|center_horizontal"
-        android:scaleType="fitEnd"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/food" />
-
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="448dp"
-        android:layout_height="500dp"
-        android:layout_marginTop="132dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/round_bottom2" />
-
-    <TextView
-        android:id="@+id/appName"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="73dp"
-        android:layout_marginTop="226dp"
-        android:layout_marginEnd="73dp"
-        android:layout_marginBottom="17dp"
-        android:gravity="center_horizontal"
-        android:text="Time To Eat"
-        android:textColor="#FFFFFF"
-        android:textSize="70dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="165dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="256dp"
-        android:background="@drawable/custom_button2"
-        android:text="Login"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appName" />
-
-    <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/image_bannertop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="212dp"
-        android:text="New here? Sign Up!"
-        android:textSize="20dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/activity_login_banner" />
+
+    <ImageView
+        android:id="@+id/image_bannerbottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/button" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/activity_login_banner" />
+
+    <ImageView
+        android:id="@+id/center_element"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginBottom="160dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/image_bannertop"
+        app:srcCompat="@drawable/center_element" />
+
+    <TextView
+        android:id="@+id/title_appname"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="64dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/app_name"
+        android:textColor="@color/colorGrayDark3"
+        android:textSize="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/center_element" />
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_round_accent"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="@color/colorGray"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/text_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/text_register"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="64dp"
+        android:text="New here? Sign Up!"
+        android:textColor="@color/colorGrayDark2"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/center_element"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

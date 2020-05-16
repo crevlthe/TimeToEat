@@ -28,11 +28,11 @@ public class StartPage extends AppCompatActivity {
 
         createNotificationChannel(); //Used to register the app's notification channel with the system
 
-        t = (TextView) findViewById(R.id.appName);
+        t = (TextView) findViewById(R.id.title_appname);
         Typeface myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/FugazOne-Regular.ttf");
         t.setTypeface(myCustomFont);
 
-        register = (TextView) findViewById(R.id.textView2);
+        register = (TextView) findViewById(R.id.text_register);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,7 +41,7 @@ public class StartPage extends AppCompatActivity {
             }
         });
 
-        Button login = (Button) findViewById(R.id.button);
+        Button login = (Button) findViewById(R.id.button_login);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
