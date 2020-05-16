@@ -7,19 +7,19 @@
     tools:context=".Register">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/image_banner"
         android:layout_width="442dp"
         android:layout_height="0dp"
         android:layout_marginBottom="264dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonReg"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/yellow_bottom"
+        app:srcCompat="@drawable/center_element2"
         app:layout_constraintHorizontal_bias="1.0"
         tools:layout_editor_absoluteX="-16dp"
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/center_element"
         android:layout_width="0dp"
         android:layout_height="375dp"
         android:layout_marginStart="16dp"
@@ -29,7 +29,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cutom_white_box" />
+        app:srcCompat="@drawable/center_element3" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -40,10 +40,10 @@
         android:layout_marginEnd="39dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/center_element"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView4">
+        app:layout_constraintTop_toTopOf="@+id/center_element">
 
 
         <TextView
@@ -61,7 +61,7 @@
             android:layout_marginLeft="20dp" />
 
         <TextView
-            android:id="@+id/Email"
+            android:id="@+id/title_email"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -75,7 +75,7 @@
             android:layout_marginLeft="20dp" />
 
         <TextView
-            android:id="@+id/Password"
+            android:id="@+id/title_password"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -86,7 +86,8 @@
             android:id="@+id/etPassword"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:inputType="textPassword" />
 
         <TextView
             android:id="@+id/ConfirmPassword"
@@ -100,7 +101,8 @@
             android:id="@+id/etConfirmPassword"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginLeft="20dp"
+            android:inputType="textPassword" />
 
 
     </LinearLayout>
@@ -116,6 +118,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/image_banner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
