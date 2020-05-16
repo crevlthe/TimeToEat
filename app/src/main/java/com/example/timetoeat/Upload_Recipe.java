@@ -85,7 +85,7 @@ public class Upload_Recipe extends AppCompatActivity {
 
         //clipboard manager for copy and paste
 
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("label", "Text to copy");
         clipboard.setPrimaryClip(clip);
 
@@ -171,7 +171,7 @@ public class Upload_Recipe extends AppCompatActivity {
             progressDialog.setMessage("Uploading Image");
             progressDialog.show();
 
-            String image = currentUserID;
+            //String image = currentUserID;
             userProfileImagesRef.putFile(ImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

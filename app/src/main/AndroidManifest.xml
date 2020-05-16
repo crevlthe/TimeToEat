@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ListGridRetrieve"></activity>
+        <activity android:name=".SavedRecipes"></activity>
+        <activity android:name=".ListGridRetrieve" />
         <activity android:name=".Upload_Recipe" />
         <activity android:name=".PersonalRecipe" />
         <activity

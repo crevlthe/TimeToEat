@@ -143,7 +143,7 @@
         android:layout_marginEnd="16dp"
         android:background="@color/colorGray"
         android:drawableTop="@drawable/ic_bookmark_black_24dp"
-        android:onClick="SearchRecipes"
+        android:onClick="SaveRecipes"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:text="@string/activity_main_saved_recipes"

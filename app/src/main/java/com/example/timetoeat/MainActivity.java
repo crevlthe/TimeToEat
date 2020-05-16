@@ -37,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void SaveRecipes(View view) {
+        Intent intent = new Intent(this, SavedRecipes.class);
+        startActivity(intent);
+    }
+
     public void ViewBuyList(View view) {
         Intent intent = new Intent(this, ListGridRetrieve.class);
         startActivity(intent);

@@ -1,5 +1,7 @@
 package com.example.timetoeat;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +28,14 @@ public class DataSetFire {
 
 
     public String getRecipeName() {
+
+        if(recipeName.contains("<") || recipeName.contains(">")){
+
+            recipeName =  StringUtils.substringBetween(recipeName, ">", "<");
+            return recipeName;
+        } else{
         return recipeName;
+        }
     }
 
     public void setRecipeName(String recipeName) {

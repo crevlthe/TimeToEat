@@ -33,6 +33,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="INGREDIENTS"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@android:color/holo_red_dark"/>
+
+        <TextView
             android:id="@+id/text_recipe_ingredients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,6 +50,16 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="@android:color/secondary_text_light"
             android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="HOW TO MAKE"
+            android:textSize="25sp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@android:color/holo_red_dark"/>
 
         <TextView
             android:id="@+id/text_recipe_body"

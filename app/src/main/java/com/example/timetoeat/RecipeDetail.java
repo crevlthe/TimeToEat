@@ -1,5 +1,6 @@
 package com.example.timetoeat;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,11 +10,22 @@ import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,6 +34,10 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RecipeDetail extends AppCompatActivity {
     private TextView RecipeTitle;
@@ -33,6 +49,12 @@ public class RecipeDetail extends AppCompatActivity {
     private String RecipeImageURL;
     private Button saveRecipe;
     private TextView t;
+
+    private DatabaseReference RootRef;
+
+    final String myCurrentDateTime = DateFormat.getDateTimeInstance()
+            .format(Calendar.getInstance().getTime());
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +94,7 @@ public class RecipeDetail extends AppCompatActivity {
         });*/
 
         };
-    /*public void sendToBuyList(ingredients){
-            Intent intent = new Intent(this, ToBuyList.class);
-            startActivity(intent);
-            intent.putExtra("strings",ingredients);
-    }*/
+
 
 
     private void getRecipe() {
@@ -171,8 +189,13 @@ public class RecipeDetail extends AppCompatActivity {
                                         .into(RecipeImage);
 
                                 RecipeTitle.setText(recipe_name_2.first().text());
+                                sendToFirebaseTitle2(recipe_name_2, recipe_name_ingredients, recipe_name_body, RecipeImageURL);
 
-                            } else RecipeTitle.setText(recipe_name_1.first().text());
+
+                            } else {
+                                RecipeTitle.setText(recipe_name_1.first().text());
+                                sendToFirebaseTitle1(recipe_name_1, recipe_name_ingredients, recipe_name_body, RecipeImageURL);
+                            };
 
                             RecipeIngredients.setText(recipe_name_ingredients.toString());
                             RecipeBody.setText(recipe_name_body.toString());
@@ -180,16 +203,94 @@ public class RecipeDetail extends AppCompatActivity {
                             saveRecipe.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+
+                                    //send ingredients to the list
                                     Intent intent = new Intent(RecipeDetail.this, ToBuyList.class);
                                     Bundle extras = new Bundle();
                                     extras.putString("INGREDIENTS", String.valueOf(recipe_name_ingredients));
                                     intent.putExtras(extras);
                                     startActivity(intent);
 
+                                    //We need to send data to Firebase depending on title_1 or title_2, therefore we create to identical methods
+
+
+
                                 }
+
                             });
+
+
+
+                                }
+
+                        private void sendToFirebaseTitle1(Elements recipe_name_1,
+                                                          StringBuilder recipe_name_ingredients,
+                                                          StringBuilder recipe_name_body,
+                                                          String recipeImageURL) {
+
+                            Map<String, Object> savedR = new HashMap<>();
+                            savedR.put("recipeName", String.valueOf(recipe_name_1));
+                            savedR.put("recipeIngredients", String.valueOf(recipe_name_ingredients));
+                            savedR.put("recipeDescription", String.valueOf(recipe_name_body));
+                            savedR.put("imgUrl", RecipeImageURL);
+
+                            RootRef = FirebaseDatabase.getInstance().getReference();
+
+
+                            RootRef.child("SavedRecipes").child(myCurrentDateTime)
+                                    .setValue(savedR)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                //startActivity(new Intent(getApplicationContext(), PersonalRecipe.class));
+                                                //Toast.makeText(RecipeDetail.this, "Recipe to the Database", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                String message = task.getException().toString();
+                                                Toast.makeText(RecipeDetail.this, "Error" + message, Toast.LENGTH_SHORT);
+                                            }
+                                        }
+                                    });
+
+
                         }
 
+
+                        private void sendToFirebaseTitle2(Elements recipe_name_2,
+                                                          StringBuilder recipe_name_ingredients,
+                                                          StringBuilder recipe_name_body, String recipeImageURL) {
+
+
+
+
+                            //Log.i("PARSE NAME", name);
+
+
+                            Map<String, Object> savedR = new HashMap<>();
+                            savedR.put("recipeName", String.valueOf(recipe_name_2));
+                            savedR.put("recipeIngredients", String.valueOf(recipe_name_ingredients));
+                            savedR.put("recipeDescription", String.valueOf(recipe_name_body));
+                            savedR.put("imgUrl", RecipeImageURL);
+
+                            RootRef = FirebaseDatabase.getInstance().getReference();
+
+
+                            RootRef.child("SavedRecipes").child(myCurrentDateTime)
+                                    .setValue(savedR)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                //startActivity(new Intent(getApplicationContext(), PersonalRecipe.class));
+                                                //Toast.makeText(RecipeDetail.this, "Recipe to the Database", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                String message = task.getException().toString();
+                                                Toast.makeText(RecipeDetail.this, "Error" + message, Toast.LENGTH_SHORT);
+                                            }
+                                        }
+                                    });
+
+                        }
                     });
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -198,5 +299,6 @@ public class RecipeDetail extends AppCompatActivity {
                     }
                 }.start();
             }
+
         }
 
