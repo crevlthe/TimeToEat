@@ -2,7 +2,7 @@
 
 ## QuickStart with TimeToEat App 
 
-  TimeToEat is a recipe recommender that allows users to save recipes, manipulate ingredient lists and fetch to-buy-lists. The application also includes some additional functions, such as search of nearby supermarket, sending notofocations and uploading personal recipes. TimeToEat was built in Android Studio IDE using Java. 
+  TimeToEat is a recipe recommender that allows users to save recipes, manipulate ingredient lists and fetch to-buy-lists. The application also includes some additional functions, such as search of nearby supermarket, sending notifications and uploading personal recipes. TimeToEat was built in Android Studio IDE using Java. 
 
 
 
